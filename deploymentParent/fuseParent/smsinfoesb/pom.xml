@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>ua.np.services</groupId>
+	<artifactId>smsinfoesb</artifactId>
+	<version>1.0.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<artifactId>fuseParent</artifactId>
+		<version>1.0.0.redhat-610379-SNAPSHOT</version>
+		<groupId>ua.np.maven</groupId>
+	</parent>
+
+	<modules>
+		<module>sms-service-api</module>
+		<module>sms-service</module>
+		<module>sms-service-legacy</module>
+		<module>sms-service-kievstar</module>
+		<module>sms-service-life</module>
+		<module>sms-service-feature</module>
+		<module>sms-service-gmsu</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- OSGi -->
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>${org.osgi.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.compendium</artifactId>
+				<version>${org.osgi.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.enterprise</artifactId>
+				<version>${org.osgi.version}</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.7</java-version>
+
+		<hibernate.javax.persistence.version>1.0.0.Final</hibernate.javax.persistence.version>
+		<camel.version>2.12.0.redhat-610379</camel.version> <!-- 2.13.1 -->
+		<activemq.version>5.9.0.redhat-610379</activemq.version>
+		<servicemix.version>2.3.0.redhat-610379</servicemix.version>
+
+		<spring.version>3.2.8.RELEASE</spring.version>
+		<apache.cxf.version>2.7.8</apache.cxf.version>
+		<asm.all.version>4.2</asm.all.version>
+		<org.osgi.version>5.0.0</org.osgi.version>
+		<openjpa.version>2.3.0</openjpa.version>
+
+		<compiler-plugin-version>2.5.1</compiler-plugin-version>
+		<resources-plugin-version>2.4.3</resources-plugin-version>
+		<bundle-plugin-version>2.4.0</bundle-plugin-version>
+		<fabric8-maven-plugin-version>1.1.0.Beta4</fabric8-maven-plugin-version>
+		<profileConfigDir>../sms-service/src/main/fabric8/localhost</profileConfigDir>
+		<jolokiaUrl>http://localhost:8181/jolokia</jolokiaUrl>
+		<server.id>fabric8.upload.repo</server.id>
+		<soapui.smsinfo.test.uri>http://dev-fab01.np.ua:8184/cxf/legacy</soapui.smsinfo.test.uri>
+	</properties>
+
+	<!-- Plugin management -->
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>${bundle-plugin-version}</version>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Implementation-Version>${project.version}</Implementation-Version>
+						<DynamicImport-Package>${osgi.dynamic.pkg}</DynamicImport-Package>
+						<_failok>true</_failok>
+						<Require-Bundle>${osgi.require.bundle}</Require-Bundle>
+						<Export-Service>${osgi.services.export}</Export-Service>
+						<Embed-Dependency>${osgi.embed.dependency}</Embed-Dependency>
+						<Embed-Transitive>${osgi.embed.transitive}</Embed-Transitive>
+						<Require-Bundle>${osgi.require.bundle}</Require-Bundle>
+						<Require-Capability>${osgi.capabilities.require}</Require-Capability>
+						<Provide-Capability>${osgi.capabilities.provide}</Provide-Capability>
+						<Service-Component>${osgi.service.component}</Service-Component>
+						<_removeheaders>Import-Service</_removeheaders>
+						<Meta-Persistence>${osgi.meta.persistence}</Meta-Persistence>
+						<Import-Package>${osgi.import.pkg}</Import-Package>
+						<Private-Package>${osgi.private.pkg}</Private-Package>
+						<Export-Package>${osgi.export.pkg}</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.smartbear.soapui</groupId>
+				<artifactId>soapui-maven-plugin</artifactId>
+				<version>5.0.0</version>
+				<configuration>
+					<projectFile>soapui_tests/test-legacy-soapui.xml</projectFile>
+					<settingsFile>soapui_tests/soapui-settings.xml</settingsFile>
+					<testSuite>TestKyivstar</testSuite>
+					<testSuite>TestLife</testSuite>
+					<threadCount>1</threadCount>
+					<junitReport>true</junitReport>
+					<outputFolder>target/junitreports</outputFolder>
+					<projectProperties>
+						<projectProperty>serviceUrl=${soapui.smsinfo.test.uri}</projectProperty>
+					</projectProperties>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

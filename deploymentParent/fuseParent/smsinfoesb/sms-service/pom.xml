@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>sms-service</artifactId>
+	<packaging>bundle</packaging>
+
+	<parent>
+		<groupId>ua.np.services</groupId>
+		<artifactId>smsinfoesb</artifactId>
+		<version>1.0.4-SNAPSHOT</version>
+	</parent>
+
+	<!-- 
+		INFO: *** MAVEN SCOPES ***
+		
+		provided-	sources transports to class path if absent in JEE env., 
+		system	-	as provided but for external jars,
+		compile	-	direct to CP, 
+		runtime	-	to local run or test - not to CP, 
+		test	-	for test goal only
+	-->
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>ua.np.services</groupId>
+			<artifactId>sms-service-api</artifactId>
+			<version>1.0.4-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+		
+		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<scope>provided</scope>
+		</dependency>		
+		
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxb</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_2.0_spec</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+	</dependencies>
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+			  <artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+		</plugins>
+	</build>
+	
+	<!-- import/export/private resource internal management -->
+	<properties> 
+	    <osgi.import.pkg>
+	    	ua.np.services.smsinfo,
+            org.hibernate.proxy,
+            javassist.util.proxy,
+	    	org.apache.camel,
+            org.apache.camel.component.direct,
+			org.osgi.service.blueprint,
+            *
+	    </osgi.import.pkg>
+	    <osgi.private.pkg>
+	    	ua.np.services.smsinfo.impl.*
+	    </osgi.private.pkg>
+	    <osgi.meta.persistence>META-INF/persistence.xml</osgi.meta.persistence>
+	</properties>
+	
+</project>

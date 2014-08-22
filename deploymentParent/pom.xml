@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd
+">
+
+    <modelVersion>4.0.0</modelVersion>
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
+
+    <name>${project.artifactId}</name>
+    <organization>
+        <name>Nova Poshta</name>
+        <url>http://novaposhta.ua</url>
+    </organization>
+    <url>http://confluence.np.ua</url>
+    <description>This is parent definition of any Nova Poshta component to be build and deployed to company-nexus</description>
+
+
+    <inceptionYear>2013</inceptionYear>
+
+    <groupId>ua.np.maven</groupId>
+    <artifactId>deploymentParent</artifactId>
+    <version>1.0.2</version>
+    <packaging>pom</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>company-nexus</id>
+            <layout>default</layout>
+            <name>NP Releases</name>
+            <url>http://nexus.np.ua/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>company-nexus</id>
+            <layout>default</layout>
+            <name>NP Snapshots</name>
+            <url>http://nexus.np.ua/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>company-nexus</id>
+            <name>NP Sites</name>
+            <url>
+                dav:http://nexus.np.ua/nexus/content/repositories/site/${project.groupId}/${project.artifactId}/${project.version}/
+            </url>
+        </site>
+    </distributionManagement>
+
+    <build>
+        <!-- maven-site-plugin needs this to handle dav:http:// protocol -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>2.6</version>
+            </extension>
+        </extensions>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

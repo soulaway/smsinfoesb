@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             ">
+
+	<!--      <cxf:cxfEndpoint id="gmsuCxfEndpoint"
+						 address="{{ua.np.services.smsinfo.gmsu.address}}/{{ua.np.services.smsinfo.gmsu.name}}"
+						 serviceClass="ua.np.services.smsinfo.gmsu.GmsuTestService"
+						 endpointName="e:GmsuEndpoint"
+						 serviceName="s:GmsuService"
+						 xmlns:e="http://smsinfo.services.np.ua/endpoint"
+						 xmlns:s="http://smsinfo.services.np.ua/service"/>
+	 -->
+
+	<camelContext id="gmsu-adapter-context" trace="{{ua.np.services.smsinfo.gmsu.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint"
+	              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://camel.apache.org/schema/blueprint ">
+
+		<dataFormats>
+			<jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="apiJaxb"/>
+		</dataFormats>
+		<!--
+				<route  id="test-gmsu-request">
+					<from uri="cxf:bean:gmsuCxfEndpoint" />
+					<setBody>
+						<simple>${body[0]}</simple>
+					</setBody>
+					<convertBodyTo type="java.lang.String"/>
+					<to uri="direct-vm:gmsu"/>
+				</route>
+		 -->
+		<route trace="true" id="direct-gmsu">
+			<from uri="direct-vm:gmsu"/>
+			<setProperty propertyName="gmsuGroup"><simple>${body}</simple></setProperty>
+			<to uri="xslt:smsGroupToGmsuSendRequest.xsl"/>
+			<!-- save the body for future update -->
+			<setHeader headerName="Authorization">
+				<constant>"{{ua.np.services.smsinfo.gmsu.credentials}}"</constant>
+			</setHeader>
+			<setExchangePattern pattern="InOut"/>
+			<to id="toGmsu" uri="jetty:{{ua.np.services.smsinfo.gmsu.http-post-sendsms.uri}}"/>
+			<to uri="direct:fromGmsu"/>
+		</route>
+
+		<route id="gmsu-to-jpa">
+			<from uri="direct:fromGmsu"/>
+			<convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			<setProperty propertyName="sessionIdResponded"><xpath resultType="java.lang.String">/MSGIDRETURN/SESSION_ID</xpath></setProperty>
+			<setBody><simple>${property.gmsuGroup}</simple></setBody>
+			<unmarshal ref="apiJaxb"/>
+			<to uri="bean:gmsuHelper?method=updateGroupAfterSendMessagesResponce(${body}, ${property.sessionIdResponded})"/>
+			<to id="jpa" uri="direct-vm:persist-responce"/>
+		</route>
+
+		<route id="status-request-route">
+			<from uri="timer://foo?period={{ua.np.services.smsinfo.gmsu-updatestate.timeout}}s;delay={{ua.np.services.smsinfo.gmsu-updatestate.delay}}s"/>
+			<to uri="direct-vm:get-not-accepted-gmsu-group"/>
+			<marshal ref="apiJaxb"/>
+			<choice>
+				<when>
+					<!--Define if more than 1 state need to be updated -->
+					<xpath>/smsGroup/sms/senderName = 'Gmsu'</xpath>
+					<to uri="xslt:smsGroupUpdateStateRequest.xsl"/>
+					<split>
+						<tokenize token="MSGID" xml="true"></tokenize>
+						<aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+							<correlationExpression><constant>true</constant></correlationExpression>
+							<completionSize>
+								<simple>{{ua.np.services.smsinfo.gmsu-updatestate-aggregation.size}}</simple>
+							</completionSize>
+							<setBody><simple>&lt;GETSTATUS&gt;&lt;MSGID_LIST&gt;${body}&lt;/MSGID_LIST&gt;&lt;/GETSTATUS&gt;</simple></setBody>
+							<to uri="jetty:{{ua.np.services.smsinfo.gmsu.http-post-getstates.uri}}"/>
+							<convertBodyTo type="java.lang.String" charset="UTF-8"/>
+							<to uri="xslt:smsGroupUpdateStateResponce.xsl"/>
+							<unmarshal ref="apiJaxb"/>
+							<to uri="direct-vm:update-state-by-id"/>
+						</aggregate>
+					</split>
+				</when>
+			</choice>
+
+		</route>
+
+	</camelContext>
+
+	<bean id="smsAggregationStrategy" class="ua.np.services.smsinfo.SmsAggregationStrategy"/>
+
+	<bean id="gmsuHelper" class="ua.np.services.smsinfo.gmsu.GmsuHelper"/>
+</blueprint>

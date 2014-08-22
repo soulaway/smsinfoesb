@@ -1,0 +1,112 @@
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:SMSServiceControllerwsdl" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="SMSServiceController" targetNamespace="urn:SMSServiceControllerwsdl">
+	<message name="deleteDeliveryStatusChangeDataRequest">
+		<part name="uuidToDelFromStatusesChanges" type="xsd:string"></part>
+	</message>
+	<message name="sendMessagesTestResponse">
+		<part name="return" type="xsd:string"></part>
+	</message>
+	<message name="sendMessagesRequest">
+		<part name="xml" type="xsd:string"></part>
+		<part name="systemName" type="xsd:string"></part>
+	</message>
+	<message name="sendMessagesTestRequest">
+		<part name="xml" type="xsd:string"></part>
+		<part name="systemName" type="xsd:string"></part>
+	</message>
+	<message name="deleteDeliveryStatusChangeDataResponse"></message>
+	<message name="getDeliveryStatusChangeCountResponse">
+		<part name="return" type="xsd:string"></part>
+	</message>
+	<message name="getDeliveryStatusDataResponse">
+		<part name="return" type="xsd:string"></part>
+	</message>
+	<message name="getDeliveryStatusChangeCountRequest">
+		<part name="systemName" type="xsd:string"></part>
+	</message>
+	<message name="sendMessagesResponse">
+		<part name="return" type="xsd:string"></part>
+	</message>
+	<message name="getDeliveryStatusDataRequest">
+		<part name="systemName" type="xsd:string"></part>
+	</message>
+	<portType name="SMSServiceControllerPortType">
+		<operation name="sendMessagesTest">
+			<wsdl:documentation/>
+			<input message="tns:sendMessagesTestRequest"></input>
+			<output message="tns:sendMessagesTestResponse"></output>
+		</operation>
+		<operation name="sendMessages">
+			<wsdl:documentation/>
+			<input message="tns:sendMessagesRequest"></input>
+			<output message="tns:sendMessagesResponse"></output>
+		</operation>
+		<operation name="getDeliveryStatusChangeCount">
+			<wsdl:documentation/>
+			<input message="tns:getDeliveryStatusChangeCountRequest"></input>
+			<output message="tns:getDeliveryStatusChangeCountResponse"></output>
+		</operation>
+		<operation name="getDeliveryStatusData">
+			<wsdl:documentation/>
+			<input message="tns:getDeliveryStatusDataRequest"></input>
+			<output message="tns:getDeliveryStatusDataResponse"></output>
+		</operation>
+		<operation name="deleteDeliveryStatusChangeData">
+			<wsdl:documentation/>
+			<input message="tns:deleteDeliveryStatusChangeDataRequest"></input>
+			<output message="tns:deleteDeliveryStatusChangeDataResponse"></output>
+		</operation>
+	</portType>
+	<binding name="SMSServiceControllerBinding" type="tns:SMSServiceControllerPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="sendMessagesTest">
+			<soap:operation soapAction="urn:SMSServiceControllerwsdl#sendMessagesTest" style="rpc"/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="sendMessages">
+			<soap:operation soapAction="urn:SMSServiceControllerwsdl#sendMessages" style="rpc"/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getDeliveryStatusChangeCount">
+			<soap:operation soapAction="urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount" style="rpc"/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="getDeliveryStatusData">
+			<soap:operation soapAction="urn:SMSServiceControllerwsdl#getDeliveryStatusData" style="rpc"/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</output>
+		</operation>
+		<operation name="deleteDeliveryStatusChangeData">
+			<soap:operation soapAction="urn:SMSServiceControllerwsdl#deleteDeliveryStatusChangeData" style="rpc"/>
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:SMSServiceControllerwsdl" use="encoded"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="SMSServiceControllerService">
+		<port binding="tns:SMSServiceControllerBinding" name="SMSServiceControllerPort">
+			<!-- <soap:address location="http://localhost:8091/legacy"/> -->
+		</port>
+	</service>
+</definitions>

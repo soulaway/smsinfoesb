@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0"
+           xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd
+             http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+
+    <cxf:cxfEndpoint id="smsCxfEndpoint"
+                     address="{{ua.np.services.smsinfo.endpoint.address}}/{{ua.np.services.smsinfo.endpoint.name}}"
+                     serviceClass="ua.np.services.smsinfo.SmsService"
+                     endpointName="e:SmsEndpoint"
+                     serviceName="s:SmsService"
+                     xmlns:e="http://smsinfo.services.np.ua/endpoint"
+                     xmlns:s="http://smsinfo.services.np.ua/service"/>
+
+
+    <camelContext id="sms-service-context" trace="{{ua.np.services.smsinfo.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint">
+
+        <dataFormats>
+            <jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="apiJaxb"/>
+        </dataFormats>
+        <!--invokes messages processing from cxf, process pojo SmsBulk -->
+        <route id="cxf-route">
+            <from uri="cxf:bean:smsCxfEndpoint" />
+            <setBody>
+                <simple>${body[0]}</simple>
+            </setBody>
+            <to uri="direct-vm:persist-request"/>
+        </route>
+
+        <!-- persists all Sms from bulk, returns the bulk to legacy responce and wireTaps it to collector-route for sending-->
+        <route id="persist-request-route">
+            <from uri="direct-vm:persist-request"/>
+            <bean ref="smsGroupDao" method="persistSms" />
+            <wireTap uri="direct:define-sender"/>
+        </route>
+
+        <route id="define-sender-route">
+            <from uri="direct:define-sender"/>
+            <choice>
+                <when>
+                    <simple>'{{ua.np.services.smsinfo.gmsu-priority}}' == 'false'</simple>
+                    <to uri="direct:ks-life-aggregator"/>
+                </when>
+                <otherwise>
+                    <to uri="direct:gmsu-aggregator"/>
+                </otherwise>
+            </choice>
+        </route>
+
+        <route id="gmsu-aggregation-route">
+            <from uri="direct:gmsu-aggregator"/>
+            <split>
+                <tokenize token="sms" xml="true"></tokenize>
+                <aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+	                <correlationExpression><constant>true</constant></correlationExpression>
+                    <completionSize>
+                        <simple>{{ua.np.services.smsinfo.gmsu-aggregation.size}}</simple>
+                    </completionSize>
+
+                    <setBody><simple>&lt;smsGroup&gt;${body}&lt;/smsGroup&gt;</simple></setBody>
+                    <unmarshal ref="apiJaxb"/>
+                    <to uri="bean:serviceHelper?method=setSenderName(${body}, Gmsu)"/>
+                    <to uri="direct-vm:gmsu"/>
+                </aggregate>
+            </split>
+        </route>
+
+        <route id="kievstar-life-aggregation-route">
+            <from uri="direct:ks-life-aggregator"/>
+            <split>
+                <tokenize token="sms" xml="true"></tokenize>
+                <setHeader headerName="phoneNumber"><xpath resultType="java.lang.String">/sms/phoneNumber</xpath></setHeader>
+                <choice>
+                    <when>
+                        <simple>${header.phoneNumber} regex &#39;^(067.*)|(068.*)|(096.*)|(097.*)|(098.*)&#39;</simple>
+                        <aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+	                        <correlationExpression><constant>true</constant></correlationExpression>
+                            <completionSize>
+                                <simple>{{ua.np.services.smsinfo.kievstar-aggregation.size}}</simple>
+                            </completionSize>
+
+                            <setBody><simple>&lt;smsGroup&gt;${body}&lt;/smsGroup&gt;</simple></setBody>
+                            <unmarshal ref="apiJaxb"/>
+                            <to uri="bean:serviceHelper?method=setSenderName(${body}, Kievstar)"/>
+                            <to uri="direct-vm:kievstar"/>
+                        </aggregate>
+                    </when>
+                    <otherwise>
+                        <aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+	                        <correlationExpression><constant>true</constant></correlationExpression>
+                            <completionSize>
+                                <simple>{{ua.np.services.life.kievstar-aggregation.size}}</simple>
+                            </completionSize>
+                            <setBody><simple>&lt;smsGroup&gt;${body}&lt;/smsGroup&gt;</simple></setBody>
+                            <unmarshal ref="apiJaxb"/>
+                            <to uri="bean:serviceHelper?method=setSenderName(${body}, Life)"/>
+                            <to uri="direct-vm:life"/>
+                        </aggregate>
+                    </otherwise>
+                </choice>
+            </split>
+        </route>
+
+        <!-- updates all Sms's from group, with senderGroupId, senderdId, falg and state by id with named qry "updateSmsStateAndFlag" -->
+        <route id="persist-responce-route">
+            <from uri="direct-vm:persist-responce"/>
+            <bean ref="smsGroupDao" method="mergeSmsGroup"/>
+        </route>
+
+        <route id="update-state-route">
+            <from uri="direct-vm:update-state"/>
+            <bean ref="smsGroupDao" method="updateSmsStatesBySenderId"/>
+        </route>
+
+        <route id="update-state-gmsu-route">
+            <from uri="direct-vm:update-state-by-id"/>
+            <bean ref="smsGroupDao" method="updateGmsuStates"/>
+        </route>
+
+        <route id="get-not-accepted-gmsu-group-route">
+            <from uri="direct-vm:get-not-accepted-gmsu-group"/>
+            <bean ref="smsGroupDao" method="getNotAcceptedGmsuGroup"/>
+        </route>
+
+        <!-- returns the count of statuses that have been changed for certain systemName -->
+        <route id="get-delivery-data-changecount-route">
+            <from uri="direct-vm:get-delivery-data-changecount"/>
+            <setProperty propertyName="sysName"><xpath resultType="java.lang.String">/statusRequest/systemName</xpath></setProperty>
+            <to uri="bean:smsGroupDao?method=getDeliveryStatusChangeCount(${property.sysName})"/>
+            <setBody>
+                <simple>
+                    &lt;statusRequest&gt;
+                    &lt;systemName&gt;${property.sysName}&lt;/systemName&gt;
+                    &lt;changeCount&gt;${body}&lt;/changeCount&gt;
+                    &lt;/statusRequest&gt;
+                </simple>
+            </setBody>
+        </route>
+
+        <!-- get-states -->
+        <route id="get-states-route">
+            <from uri="direct-vm:get-states"/>
+            <setProperty propertyName="sysName"><xpath resultType="java.lang.String">/statusRequest/systemName</xpath></setProperty>
+            <to uri="bean:smsGroupDao?method=getStates(${property.sysName})"/>
+            <marshal ref="apiJaxb"/>
+        </route>
+    </camelContext>
+
+    <bean id="serviceHelper" class="ua.np.services.smsinfo.impl.ServiceHelper"/>
+
+    <bean id="smsAggregationStrategy" class="ua.np.services.smsinfo.SmsAggregationStrategy"/>
+
+    <bean id="smsGroupDao" class="ua.np.services.smsinfo.impl.SmsGroupDao" activation="eager">
+        <jpa:context unitname="sms-service-pu-remote" property="entityManager" />
+        <tx:transaction method="*" value="Required" />
+    </bean>
+
+</blueprint>

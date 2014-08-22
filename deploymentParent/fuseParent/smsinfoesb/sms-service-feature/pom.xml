@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>smsinfoesb</artifactId>
+        <groupId>ua.np.services</groupId>
+        <version>1.0.4-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>sms-service-feature</artifactId>
+    <packaging>pom</packaging>
+    <!--<name>Nova Poshta Sms Info Service</name>-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>attach-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.outputDirectory}/features.xml</file>
+                                    <type>xml</type>
+                                    <classifier>features</classifier>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Common smsinfo profile description. use fabric8:deploy -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+<!--                 <version>1.1.0.Beta4</version> -->
+                <configuration>
+                    <profile>np-smsinfo</profile>
+                    <features>
+				        fabric-cxf
+				        fabric-cxf-registry                    	
+				        camel-core
+					    camel-blueprint
+				        camel-http
+				        camel-cxf
+				        camel-jetty
+				        camel-jaxb
+                    	np-feature-jpa-hbn
+                    </features>
+                    <featureRepos>mvn:ua.np.services/sms-service-feature/${project.version}/xml/features</featureRepos>
+                    <bundles>
+                        mvn:ua.np.services/sms-service-api/${project.version}
+                        mvn:ua.np.services/sms-service/${project.version}
+                        mvn:ua.np.services/sms-service-legacy/${project.version}
+                        mvn:ua.np.services/sms-service-kievstar/${project.version}
+                        mvn:ua.np.services/sms-service-life/${project.version}
+                        mvn:ua.np.services/sms-service-gmsu/${project.version}
+                    </bundles>
+                    <parentProfiles>np_default</parentProfiles>
+                    <profileConfigDir>${profileConfigDir}</profileConfigDir>
+                    <jolokiaUrl>${jolokiaUrl}</jolokiaUrl>
+                    <serverId>${server.id}</serverId>
+                    <includeArtifact>false</includeArtifact>
+                    <!--
+                    mvn fabric8:deploy -DprofileConfigDir=sms-service/src/main/fabric8/dev -DjolokiaUrl=http://fab01.dev.np.ua:8181/jolokia
+                    -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

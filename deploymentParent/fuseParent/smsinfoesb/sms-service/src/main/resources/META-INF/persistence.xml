@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+        xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        version="2.0">
+
+    <persistence-unit name="sms-service-pu-remote" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/snpDataSource)</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <!-- Nothing special -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <!-- Stability -->
+            <property name="hibernate.order_updates" value="true"/>
+            <!-- Performance improvement -->
+            <property name="hibernate.hibernate.max_fetch_depth" value="2"/>
+            <property name="hibernate.default_batch_fetch_size" value="8"/>
+            <property name="hibernate.jdbc.fetch_size" value="1000"/>
+            <!-- JVM HEAP SIZE BASED -->
+            <property name="hibernate.jdbc.batch_size" value="15"/>
+            <property name="hibernate.jdbc.batch_versioned_data" value="true"/>
+            <!-- Performance degradation options -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.generate_statistics" value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
