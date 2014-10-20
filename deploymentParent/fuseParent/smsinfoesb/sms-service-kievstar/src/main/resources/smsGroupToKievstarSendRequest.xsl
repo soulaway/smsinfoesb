@@ -7,8 +7,6 @@
     <xsl:output method="xml" encoding="UTF-8" indent="no"/>
     <xsl:template match="/smsGroup">
         <root xmlns="http://goldentele.com/cpa">
-            <login>newmail</login>
-            <paswd>sdgf232fsaqa2</paswd>
             <service>bulk-request</service>
             <expiry/>
             <tid>1</tid>
