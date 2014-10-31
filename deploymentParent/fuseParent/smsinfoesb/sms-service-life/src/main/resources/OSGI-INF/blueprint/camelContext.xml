@@ -9,15 +9,6 @@
              ">
 
 
-		<!--<cxf:cxfEndpoint id="lifeCxfEndpoint"-->
-			<!--address="{{ua.np.services.smsinfo.life.test.address}}/{{ua.np.services.smsinfo.life.test.name}}"-->
-			<!--serviceClass="ua.np.services.smsinfo.life.SmsService"-->
-			<!--endpointName="e:lifeEndpoint"-->
-			<!--serviceName="s:lifeService"-->
-			<!--xmlns:e="http://smsinfo.services.np.ua/endpoint"-->
-			<!--xmlns:s="http://smsinfo.services.np.ua/service"/> -->
-
-
     <camelContext id="life-adapter-context" trace="{{ua.np.services.smsinfo.life.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://camel.apache.org/schema/blueprint ">
@@ -26,16 +17,7 @@
             <jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="apiJaxb"/>
         </dataFormats>
 
-        <!--<route trace="true" id="test-life-request">-->
-            <!--<from uri="cxf:bean:lifeCxfEndpoint" />-->
-            <!--<log message="From Life-adapter ${body}"/>-->
-            <!--<setBody>-->
-                 <!--<simple>${body[0]}</simple>-->
-             <!--</setBody>-->
-            <!--<to uri="direct-vm:life"/>-->
-        <!--</route>-->
-
-        <route id="life-status-gateway">
+        <route id="life-status-gateway" startupOrder="40">
             <from uri="jetty:{{ua.np.services.smsinfo.life.gateway.url}}"/>
             <inOnly uri="direct:fromLifeStatus"/>
             <setBody>
@@ -45,40 +27,49 @@
             </setBody>
         </route>
 
-        <route id="direct-life">
-            <from uri="direct-vm:life"/>        
+
+	    <route id="life-aggregator" startupOrder="41">
+		    <from uri="direct-vm:life-aggregator"/>
+	    <aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+	    <correlationExpression><constant>true</constant></correlationExpression>
+	    <completionSize>
+		    <simple>{{ua.np.services.smsinfo.life-aggregation.size}}</simple>
+	    </completionSize>
+	    <setBody><simple>&lt;smsGroup&gt;${body}&lt;/smsGroup&gt;</simple></setBody>
+	    <unmarshal ref="apiJaxb"/>
+	    <to uri="direct:life"/>
+		    </aggregate>
+	    </route>
+
+        <route id="direct-life" startupOrder="10">
+            <from uri="direct:life"/>
             <marshal ref="apiJaxb"/>
-            <!--<setHeader headerName="lifeGroup"><simple>${body}</simple></setHeader>-->
             <setProperty propertyName="lifeGroup">
                 <simple>${body}</simple>
             </setProperty>
-            <!--<log message="[life-adapter-context]:[direct-life] ${body}"/>-->
             <to uri="xslt:smsGroupToLifeSendRequest.xsl"/>
-            <!--<log message="Request to Life ${body}"/>-->
             <to id="toLife" uri="jetty:{{ua.np.services.smsinfo.life.request.uri}}"/>
             <to uri="direct:fromLife"/>
         </route>
 
-        <route id="life-to-service">
+        <route id="life-to-service" startupOrder="20">
             <from uri="direct:fromLife"/>
             <convertBodyTo type="java.lang.String" charset="UTF-8"/>
-            <!--<log message="Response from Life: ${body}"/>-->
             <to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
-            <!--<log message="converted response from Life: ${body}"/>-->
             <unmarshal ref="apiJaxb"/>
             <bean ref="groupComparator"/>
             <to id="jpa" uri="direct-vm:persist-responce"/>
         </route>
 
-        <route id="statusResponse">
+        <route id="statusResponse" startupOrder="30">
             <from uri="direct:fromLifeStatus"/>
             <convertBodyTo type="java.lang.String" charset="UTF-8"/>
-            <!--<log message="Status response from Life: ${body}"/>-->
             <to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
             <unmarshal ref="apiJaxb"/>
             <to id="statusToJpa" uri="direct-vm:update-state"/>
         </route>
     </camelContext>
-    
-    <bean id="groupComparator" class="ua.np.services.smsinfo.life.CompareGroupResponceProcessor"/>
+
+	<bean id="smsAggregationStrategy" class="ua.np.services.smsinfo.SmsAggregationStrategy"/>
+	<bean id="groupComparator" class="ua.np.services.smsinfo.life.CompareGroupResponceProcessor"/>
 </blueprint>

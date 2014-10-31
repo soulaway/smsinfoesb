@@ -10,108 +10,115 @@
 			 http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
+
 	<cxf:cxfEndpoint id="smsLegacyEndpointSoap"
-		address="{{ua.np.services.smsinfo.legacy.soap.address}}/{{ua.np.services.smsinfo.legacy.soap.name}}"
-		wsdlURL="legacy.wsdl">	
- 	    <cxf:properties>
-	        <entry key="dataFormat" value="MESSAGE"/>
-	    </cxf:properties>
+	                 xmlns:e="urn:SMSServiceControllerwsdl"
+	                 address="{{ua.np.services.smsinfo.legacy.soap.address}}/{{ua.np.services.smsinfo.legacy.soap.name}}"
+	                 serviceName="e:SMSServiceControllerService"
+	                 endpointName="e:SMSServiceControllerPort"
+	                 wsdlURL="legacy.wsdl">
+		<cxf:properties>
+			<entry key="dataFormat" value="MESSAGE"/>
+			<entry key="setDefaultBus" value="true"/>
+		</cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<camelContext  id="legacy-adapter-context" trace="{{ua.np.services.smsinfo.legacy.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint">
 
 		<dataFormats>
-		    <jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="bulkJaxb"/>
-		</dataFormats>		
-		
-		<route id="legacy-soap-route">
+			<jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="bulkJaxb"/>
+		</dataFormats>
+
+		<route id="legacy-soap-route" startupOrder="100">
 			<from uri="cxf:bean:smsLegacyEndpointSoap"/>
 			<convertBodyTo type="java.lang.String"/>
-			<!-- <log message="[legacy-adapter-context]:[legacy-soap-route] ${body}"/> -->
-            <setProperty propertyName="operationName"><simple>${header.CamelCxfMessage['org.apache.cxf.message.Message.PROTOCOL_HEADERS']['SOAPAction']}</simple></setProperty>
-            <!-- <log message="[legacy-adapter-context]:[legacy-soap-route] operationName ${property.operationName}"/> -->
+			<setProperty propertyName="operationName"><simple>${header.CamelCxfMessage['org.apache.cxf.message.Message.PROTOCOL_HEADERS']['SOAPAction']}</simple></setProperty>
+			
+			<bean ref="restCharsetHandler"/>
+			
 			<to uri="direct:soap-request-handler"/>
 		</route>
-		
-		<route id="soap-request-handler-route">
+
+		<route id="soap-request-handler-route" startupOrder="10">
 			<from uri="direct:soap-request-handler"/>
-            <!-- <log message="[legacy-adapter-context]:[legacy-request-handler] action = ${header.soapAction}"/> -->
-            <choice>
-                <when>
-                    <simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#sendMessages"]'</simple>
-					<!-- <log message="[legacy-adapter-context]:[legacy-route] action = soap sendMessages"/> -->
+			<!-- <log message="[legacy-adapter-context]:[legacy-request-handler] action = ${header.soapAction}"/> -->
+			<choice>
+				<when>
+					<simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#sendMessages"]'</simple>
+					<to uri="xslt:removeTagEscapes.xsl"/>
 					<!-- Removing prolog <?xml version="1.0" encoding="UTF-8"?> -->
 					<transform><simple>${body.replaceAll("&lt;\?xml.+?\?&gt;", "")}</simple></transform>
- 		        	<to uri="xslt:sendMessagesRequest.xsl"/>
-  					<unmarshal ref="bulkJaxb"/>
+					<to uri="xslt:sendMessagesRequest.xsl"/>
+					<unmarshal ref="bulkJaxb"/>
 					<to uri="direct-vm:persist-request"/>
-					<!-- <log message = "[legacy-adapter-context]:[legacy-route] responce from service: ${body}"/> -->
-					<to uri="xslt:sendMessagesResponce.xsl"/> 	
-                </when>
-                <when>
-                    <simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#getDeliveryStatusData"]'</simple>
-                    <!-- <log message="[legacy-adapter-context]:[legacy-route] action = soap getDeliveryStatusData ${body}"/> -->
-                    <to uri="xslt:getStatesRequest.xsl"/>
-                    <to uri="direct-vm:get-states"/>
-                    <to uri="xslt:getStatesResponce.xsl"/>
-                    <!-- <log message="xslt:statesChangeCountResponce.xsl = ${body}"/> -->
-                </when>
-                <when>
-                    <simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount"]'</simple>
-                    <!-- <log message="[legacy-adapter-context]:[legacy-route] action = soap getDeliveryStatusChangeCount ${body}"/> -->
-                    <to uri="xslt:statesChangeCountRequest.xsl"/>
-                    <to uri="direct-vm:get-delivery-data-changecount"/>
-                    <to uri="xslt:statesChangeCountResponce.xsl"/>
-                    <!-- <log message="xslt:statesChangeCountResponce.xsl = ${body}"/> -->
-                </when>                
-            </choice>
+					<to uri="xslt:sendMessagesResponce.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>					
+				</when>
+				<when>
+					<simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#getDeliveryStatusData"]'</simple>
+					<to uri="xslt:getStatesRequest.xsl"/>
+					<to uri="direct-vm:get-states"/>
+					<to uri="xslt:getStatesResponce.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>					
+				</when>
+				<when>
+					<simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount"]'</simple>
+					<to uri="xslt:statesChangeCountRequest.xsl"/>
+					<to uri="direct-vm:get-delivery-data-changecount"/>
+					<to uri="xslt:statesChangeCountResponce.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>					
+				</when>
+			</choice>
 		</route>
 
-		<route id="legacy-rest-route">
-			<from uri="cxfrs://{{ua.np.services.smsinfo.legacy.rest.address}}/{{ua.np.services.smsinfo.legacy.rest.name}}?resourceClasses=ua.np.services.smsinfo.legacy.LegacyRestService"/>
+		<route id="legacy-rest-route" startupOrder="200">
+			<from uri="cxfrs://{{ua.np.services.smsinfo.legacy.rest.address}}/{{ua.np.services.smsinfo.legacy.rest.name}}?resourceClasses=ua.np.services.smsinfo.legacy.LegacyRestService&amp;setDefaultBus=true"/>
 			<!-- reading IS to body -->
 			<setBody><simple>${body}</simple></setBody>
 			<setProperty propertyName="systemName"><simple>${body[0]}</simple></setProperty>
-			<!-- <setHeader headerName="CamelHttpUri"><simple>/cxf/legacy-rest</simple></setHeader> -->
-			<!-- <log message="[legacy-adapter-context]:[legacy-rest-route] systemName= ${property.systemName} and body ${body[1]}"/> -->
 			<setBody><simple>${body[1]}</simple></setBody>
-            <setProperty propertyName="operationName"><xpath resultType="java.lang.String">/Structure/Value/Data</xpath></setProperty>
-            <!-- <log message="[legacy-adapter-context]:[legacy-rest-route] operation : ${property.operationName} BODY: ${body}"/> -->
+			<setProperty propertyName="operationName"><xpath resultType="java.lang.String">/Structure/Value/Data</xpath></setProperty>
+			<!-- gmsu charset workaround -->
+			<bean ref="restCharsetHandler"/>
 			<to uri="direct:rest-request-handler"/>
 		</route>
 
-		<route id="rest-request-handler-route">
+		<route id="rest-request-handler-route" startupOrder="20">
 			<from uri="direct:rest-request-handler"/>
-            <!-- <log message="[legacy-adapter-context]:[legacy-request-handler] action = ${header.soapAction}"/> -->
-            <choice>
-                <when>
-                    <simple>${property.operationName} == 'sendMessages'</simple>
-					<!-- <log message="[legacy-adapter-context]:[legacy-route] action = rest sendMessages"/> -->
+			<choice>
+				<when>
+					<simple>${property.operationName} == 'sendMessages'</simple>
 					<transform><simple>${body.replaceAll("&lt;\?xml.+?\?&gt;", "")}</simple></transform>
-		            <setBody><simple>&lt;restRequest&gt;&lt;systemName&gt;${property.systemName}&lt;/systemName&gt;${body}&lt;/restRequest&gt;</simple></setBody>
- 		        	<to uri="xslt:sendMessagesRequestRest.xsl"/>
-  					<unmarshal ref="bulkJaxb"/>
+					<setBody><simple>&lt;data&gt;&lt;systemName&gt;${property.systemName}&lt;/systemName&gt;${body}&lt;/data&gt;</simple></setBody>
+					<to uri="xslt:sendMessagesRequest.xsl"/>
+					<unmarshal ref="bulkJaxb"/>
 					<to uri="direct-vm:persist-request"/>
-					<!-- <log message = "[legacy-adapter-context]:[legacy-route] responce from service: ${body}"/> -->
-					<to uri="xslt:sendMessagesResponce.xsl"/> 	
-                </when>
-                <when>
-                    <simple>${property.operationName} == 'getDeliveryStatusData'</simple>
-                    <!-- <log message="[legacy-adapter-context]:[legacy-route] action = rest getStates ${body}"/> -->
+					<to uri="xslt:sendMessagesResponceRest.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>
+				</when>
+				<when>
+					<simple>${property.operationName} == 'getDeliveryStatusData'</simple>
 					<setBody><simple>&lt;statusRequest&gt;&lt;systemName&gt;${property.systemName}&lt;/systemName&gt;&lt;/statusRequest&gt;</simple></setBody>
-                    <to uri="direct-vm:get-states"/>
-                    <to uri="xslt:getStatesResponce.xsl"/>
-                    <!-- <log message="xslt:statesChangeCountResponce.xsl = ${body}"/> -->
-                </when>
-                <when>
-                    <simple>${property.operationName} == 'getDeliveryStatusChangeCount'</simple>
-                    <!-- <log message="[legacy-adapter-context]:[legacy-route] action = rest getStatesChangeCount ${body}"/> -->
-                    <setBody><simple>&lt;statusRequest&gt;&lt;systemName&gt;${property.systemName}&lt;/systemName&gt;&lt;/statusRequest&gt;</simple></setBody>
-                    <to uri="direct-vm:get-delivery-data-changecount"/>
-                    <to uri="xslt:statesChangeCountResponce.xsl"/>
-                    <!-- <log message="xslt:statesChangeCountResponce.xsl = ${body}"/> -->
-                </when>              
-            </choice>
+					<to uri="direct-vm:get-states"/>
+					<to uri="xslt:getStatesResponceRest.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>
+				</when>
+				<when>
+					<simple>${property.operationName} == 'getDeliveryStatusChangeCount'</simple>
+					<setBody><simple>&lt;statusRequest&gt;&lt;systemName&gt;${property.systemName}&lt;/systemName&gt;&lt;/statusRequest&gt;</simple></setBody>
+					<to uri="direct-vm:get-delivery-data-changecount"/>
+					<to uri="xslt:statesChangeCountResponceRest.xsl"/>
+<!-- for route logging TODO remove-->
+<setBody><simple>${body}</simple></setBody>
+				</when>
+			</choice>
 		</route>
 	</camelContext>
+	
+	<bean id="restCharsetHandler" class="ua.np.services.smsinfo.legacy.RestHeadersCharsetHandler"/>
 </blueprint>

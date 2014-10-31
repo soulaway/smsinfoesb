@@ -7,6 +7,7 @@
 			<sms>
                 <id><xsl:value-of select="MSGID"/></id>
 				<state><xsl:value-of select="MSGSTAT"/></state>
+				<failReason><xsl:value-of select="REASON"/></failReason>
 			</sms>
         </xsl:for-each>
         </smsGroup>

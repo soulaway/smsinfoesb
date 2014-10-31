@@ -159,7 +159,7 @@
 </uuidToDelFromStatusesChanges>
       </urn:deleteDeliveryStatusChangeData>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#deleteDeliveryStatusChangeData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount" name="getDeliveryStatusChangeCount" bindingOperationName="getDeliveryStatusChangeCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint/><con:request/><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#getDeliveryStatusData" name="getDeliveryStatusData" bindingOperationName="getDeliveryStatusData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint xsi:nil="true"/><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#deleteDeliveryStatusChangeData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount" name="getDeliveryStatusChangeCount" bindingOperationName="getDeliveryStatusChangeCount" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint/><con:request/><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#getDeliveryStatusChangeCount"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#getDeliveryStatusData" name="getDeliveryStatusData" bindingOperationName="getDeliveryStatusData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint xsi:nil="true"/><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:getDeliveryStatusData soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
@@ -175,7 +175,7 @@
          </systemName>
       </urn:getDeliveryStatusData>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#getDeliveryStatusData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#sendMessages" name="sendMessages" bindingOperationName="sendMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#getDeliveryStatusData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#sendMessages" name="sendMessages" bindingOperationName="sendMessages" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessages soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
@@ -220,7 +220,7 @@
          <systemName xsi:type="xsd:string">some system name</systemName>
       </urn:sendMessages>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#sendMessages"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#sendMessagesTest" name="sendMessagesTest" bindingOperationName="sendMessagesTest" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#sendMessages"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:SMSServiceControllerwsdl#sendMessagesTest" name="sendMessagesTest" bindingOperationName="sendMessagesTest" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessagesTest soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
@@ -228,47 +228,46 @@
          <systemName xsi:type="xsd:string">?</systemName>
       </urn:sendMessagesTest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#sendMessagesTest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestKyivstar"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestSendSms" searchProperties="true" id="21a35255-a5f2-4842-ae6f-41db1d843cc9"><con:settings/><con:testStep type="request" name="TestSendSms2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>sendMessages</con:operation><con:request name="TestSendSms2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:SMSServiceControllerwsdl#sendMessagesTest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestKyivstar"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestSendSms" searchProperties="true" id="21a35255-a5f2-4842-ae6f-41db1d843cc9"><con:settings/><con:testStep type="request" name="TestSendSms2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>sendMessages</con:operation><con:request name="TestSendSms2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessages soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-         <xml xsi:type="xsd:string"><?xml version="1.0" encoding="UTF-8"?>
-<Structure>
-	<Value name="operation">
-		<Type>String</Type>
-		<Data>sendMessages</Data>
-	</Value>
-	<Array name="messageArray">
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms1</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms2</Data>
-			</Value>
-		</Structure>
-	</Array>
-</Structure>
+         <xml xsi:type="xsd:string">
+ &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Structure&gt;
+ &lt;Array name="messageArray"&gt;
+ 
+  &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf2&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf3&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+ &lt;/Array&gt;
+  &lt;/Structure&gt;
 </xml>
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:sendMessages>
@@ -291,155 +290,163 @@
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessages soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-         <xml xsi:type="xsd:string"><?xml version="1.0" encoding="UTF-8"?>
-<Structure>
-	<Value name="operation">
-		<Type>String</Type>
-		<Data>sendMessages</Data>
-	</Value>
-	<Array name="messageArray">
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms1</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms2</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms3</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms4</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms5</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms6</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms7</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms8</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms9</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0976426544</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms10</Data>
-			</Value>
-		</Structure>
-	</Array>
-</Structure>
+         <xml xsi:type="xsd:string">
+ &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Structure&gt;
+ &lt;Array name="messageArray"&gt;
+ 
+  &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf4&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf5&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+ &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf6&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf7&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf8&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf9&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf0&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb11&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb12&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb13&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0674557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+ &lt;/Array&gt;
+  &lt;/Structure&gt;
 </xml>
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:sendMessages>
@@ -451,58 +458,53 @@
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:getDeliveryStatusChangeCount>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataExists"><con:configuration><path>exists(//Value/Data)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="TypeExists"><con:configuration><path>exists(//Value/Type)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="isDataMoreThan0"><con:configuration><path>Value/Data >=0</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="goto" name="isDataEquals0 10"><con:settings/><con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:condition><con:name>DataMoreThan0</con:name><con:type>XPATH</con:type><con:expression>Value/Data=0</con:expression><con:targetStep>HTTP Test StatusResponse</con:targetStep></con:condition></con:config></con:testStep><con:testStep type="request" name="TestGetDeliveryStatusData10"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>getDeliveryStatusData</con:operation><con:request name="TestGetDeliveryStatusData10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataExists"><con:configuration><path>exists(//Value/Data)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="TypeExists"><con:configuration><path>exists(//Value/Type)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="isDataMoreThan0"><con:configuration><path>Value/Data >=0</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="goto" name="isDataEquals0 10"><con:settings/><con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:condition><con:name>DataMoreThan0</con:name><con:type>XPATH</con:type><con:expression>Value/Data=0</con:expression><con:targetStep>Delay</con:targetStep></con:condition></con:config></con:testStep><con:testStep type="request" name="TestGetDeliveryStatusData10"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>getDeliveryStatusData</con:operation><con:request name="TestGetDeliveryStatusData10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:getDeliveryStatusData soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:getDeliveryStatusData>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>exists (Structure/ValueTable/Columns/Column/Name)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="httprequest" name="HTTP Test StatusResponse"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="HTTP Test StatusResponse" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://goldetele.com/cpa">
-	<status mid="84140005" clid="0000-00001321">Accepted</status>
-	<status mid="84140006" clid="0000-00001322">Accepted</status>
-</report>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>/*[local-name()="report" and namespace-uri()='http://goldentele.com/cpa']/*[local-name()="status"] = 'Accepted'</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="TestLife"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestSendSms" searchProperties="true" id="ee707015-3cc0-42a7-a073-f9ae4feb90e0"><con:settings/><con:testStep type="request" name="TestSendSms2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>sendMessages</con:operation><con:request name="TestSendSms2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>exists (Structure/ValueTable/Columns/Column/Name)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="TestLife"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestSendSms" searchProperties="true" id="ee707015-3cc0-42a7-a073-f9ae4feb90e0"><con:settings/><con:testStep type="request" name="TestSendSms2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>sendMessages</con:operation><con:request name="TestSendSms2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessages soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-         <xml xsi:type="xsd:string"><?xml version="1.0" encoding="UTF-8"?>
-<Structure>
-	<Value name="operation">
-		<Type>String</Type>
-		<Data>sendMessages</Data>
-	</Value>
-	<Array name="messageArray">
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms1</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms2</Data>
-			</Value>
-		</Structure>
-	</Array>
-</Structure>
+         <xml xsi:type="xsd:string">
+ &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Structure&gt;
+ &lt;Array name="messageArray"&gt;
+ 
+  &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf2&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf3&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+ &lt;/Array&gt;
+  &lt;/Structure&gt;
 </xml>
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:sendMessages>
@@ -525,155 +527,163 @@
    <soapenv:Header/>
    <soapenv:Body>
       <urn:sendMessages soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-         <xml xsi:type="xsd:string"><?xml version="1.0" encoding="UTF-8"?>
-<Structure>
-	<Value name="operation">
-		<Type>String</Type>
-		<Data>sendMessages</Data>
-	</Value>
-	<Array name="messageArray">
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>1182</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms1</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms2</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms3</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms4</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms1</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms6</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms7</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms8</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data>112</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data>0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms9</Data>
-			</Value>
-		</Structure>
-		<Structure>
-			<Value name="id">
-				<Type>String</Type>
-				<Data> 332</Data>
-			</Value>
-			<Value name="phone">
-				<Type>String</Type>
-				<Data> 0937447982</Data>
-			</Value>
-			<Value name="text">
-				<Type>String</Type>
-				<Data>sms10</Data>
-			</Value>
-		</Structure>
-	</Array>
-</Structure>
+         <xml xsi:type="xsd:string">
+ &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Structure&gt;
+ &lt;Array name="messageArray"&gt;
+ 
+  &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf4&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf5&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+ &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf6&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf7&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf8&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf9&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9ebf0&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb11&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+
+     &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb12&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;934557547&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує подарунки!1&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+    &lt;Structure&gt;
+   &lt;Value name="id"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;6f-4b23-9b93-136ab9d9eb13&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="phone"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;0934557597&lt;/Data&gt;
+   &lt;/Value&gt;
+   &lt;Value name="text"&gt;
+    &lt;Type&gt;String&lt;/Type&gt;
+    &lt;Data&gt;До дня Народження Нова Пошта дарує&lt;/Data&gt;         
+    &lt;/Value&gt;
+    &lt;/Structure&gt;
+    
+ &lt;/Array&gt;
+  &lt;/Structure&gt;
 </xml>
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:sendMessages>
@@ -685,21 +695,43 @@
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:getDeliveryStatusChangeCount>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataMoreThan0"><con:configuration><path>Value/Data >=0</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataExists"><con:configuration><path>exists(//Value/Data)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="TypeExists"><con:configuration><path>exists(//Value/Type)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="goto" name="isDataEquals0 10"><con:settings/><con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:condition><con:name>DataMoreThan0</con:name><con:type>XPATH</con:type><con:expression>Value/Data=0</con:expression><con:targetStep>HTTP Test StatusResponse</con:targetStep></con:condition></con:config></con:testStep><con:testStep type="request" name="TestGetDeliveryStatusData 10"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>getDeliveryStatusData</con:operation><con:request name="TestGetDeliveryStatusData 10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
+</soapenv:Envelope>]]></con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataMoreThan0"><con:configuration><path>Value/Data >=0</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="DataExists"><con:configuration><path>exists(//Value/Data)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="TypeExists"><con:configuration><path>exists(//Value/Type)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="goto" name="isDataEquals0 10"><con:settings/><con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:condition><con:name>DataMoreThan0</con:name><con:type>XPATH</con:type><con:expression>Value/Data=0</con:expression><con:targetStep>Delay</con:targetStep></con:condition></con:config></con:testStep><con:testStep type="request" name="TestGetDeliveryStatusData 10"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>SMSServiceControllerBinding</con:interface><con:operation>getDeliveryStatusData</con:operation><con:request name="TestGetDeliveryStatusData 10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:SMSServiceControllerwsdl">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:getDeliveryStatusData soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <systemName xsi:type="xsd:string">awis</systemName>
       </urn:getDeliveryStatusData>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>exists (Structure/ValueTable/Columns/Column/Name)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="httprequest" name="HTTP Test StatusResponse"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="HTTP Test StatusResponse" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>${#Project#serviceUrl}</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<status groupid="13404" date="Wed, 16 Jul 2014 16:15:37 +0300">
-	<detail>
-		<id>158265799</id>
-		<state>Accepted</state>
-	</detail>
-	<detail>
-		<id>158265800</id>
-		<state>Accepted</state>
-	</detail>
-</status>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>status = "accepted"</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>serviceUrl</con:name><con:value>http://dev-esb01.np.ua:7676/legacy</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="Invalid HTTP Status Codes" name="Invalid HTTP Status Codes"><con:configuration><codes>400,407,404,500</codes></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>exists (Structure/ValueTable/Columns/Column/Name)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="REST"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true" id="0b8e9954-e169-4caf-87e9-4d962e747736"><con:settings/><con:testStep type="httprequest" name="SendMessages"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="SendMessages" postQueryString="false" mediaType="text/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceRESTUrl}/legacy-rest/post?systemName=awis</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>			
+<Structure>
+	<Value name="operation">
+		<Type>String</Type>
+		<Data>sendMessages</Data>
+	</Value>			
+				<Array name="messageArray">
+					<Structure>	
+						<Value name="id"><Type>String</Type>	<Data>ієололоgf</Data></Value>
+						<Value name="phone"><Type>String</Type><Data>0663282837</Data></Value>	
+						<Value name="text">	<Type>String</Type>	<Data>ієололо</Data></Value>
+					</Structure>
+					<Structure>	
+						<Value name="id"><Type>String</Type>	<Data>ololo</Data></Value>
+						<Value name="phone"><Type>String</Type><Data>0976426544</Data></Value>	
+						<Value name="text">	<Type>String</Type>	<Data>test-me</Data></Value>
+					</Structure>
+				</Array>
+			</Structure>          ]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="delay" name="Delay5000"><con:settings/><con:config><delay>5000</delay></con:config></con:testStep><con:testStep type="httprequest" name="getDeliveryStatusChangeCount"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="getDeliveryStatusChangeCount" postQueryString="false" mediaType="text/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceRESTUrl}/legacy-rest/post?systemName=awis</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Structure>
+	<Value name="operation">
+		<Type>String</Type>
+		<Data>getDeliveryStatusChangeCount</Data>
+	</Value>
+</Structure>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="goto" name="isDataEquals0"><con:settings/><con:config xsi:type="con:GotoStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:condition><con:name>DataMoreThan0</con:name><con:type>XPATH</con:type><con:expression>Value/Data=0</con:expression><con:targetStep>Delay1000</con:targetStep></con:condition></con:config></con:testStep><con:testStep type="httprequest" name="getDeliveryStatus"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="getDeliveryStatus" postQueryString="false" mediaType="text/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#serviceRESTUrl}/legacy-rest/post?systemName=awis</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Structure>
+	<Value name="operation">
+		<Type>String</Type>
+		<Data>getDeliveryStatusData</Data>
+	</Value>
+</Structure>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="delay" name="Delay1000"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>serviceUrl</con:name><con:value>http://localhost:8182/cxf/legacy</con:value></con:property><con:property><con:name>serviceRESTUrl</con:name><con:value>http://dev-esb01.np.ua:8182/cxf</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

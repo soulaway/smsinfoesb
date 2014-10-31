@@ -45,9 +45,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "updateSmsStateAndFlag", query = "UPDATE Sms sms SET sms.state = ?1, sms.isStateChanged = ?2, sms.senderId = ?3, sms.senderGroupId = ?4, sms.senderName = ?5 WHERE sms.id = ?6"),
 	@NamedQuery(name = "getChangeCount", query = "SELECT COUNT(sms.id) FROM Sms sms WHERE sms.isStateChanged = ?1 AND sms.systemName = ?2"),
 	@NamedQuery(name = "getStates", query = "SELECT sms FROM Sms sms WHERE sms.isStateChanged = ?1 AND sms.systemName = ?2"),
-    @NamedQuery(name = "updateSmsStateAndFlagBySenderId", query = "UPDATE Sms sms SET sms.state = ?1, sms.isStateChanged = ?2 WHERE sms.senderId = ?3"),
-    @NamedQuery(name = "updateSmsStateAndFlagById", query = "UPDATE Sms sms SET sms.state = ?1, sms.isStateChanged = ?2 WHERE sms.id = ?3"),
-    @NamedQuery(name = "getNotDelivered", query = "SELECT sms FROM Sms sms WHERE sms.state != ?1 AND sms.senderName = ?2 AND sms.endDateTime >= ?3")
+    @NamedQuery(name = "updateSmsStateAndFlagBySenderId", query = "UPDATE Sms sms SET sms.state = ?1, sms.isStateChanged = ?2, sms.failReason = ?3 WHERE sms.senderId = ?4"),
+    @NamedQuery(name = "updateSmsStateAndFlagById", query = "UPDATE Sms sms SET sms.state = ?1, sms.isStateChanged = ?2, sms.failReason = ?3 WHERE sms.id = ?4"),
+    @NamedQuery(name = "getNotDelivered", query = "SELECT sms FROM Sms sms WHERE sms.state < ?1 AND sms.senderName = ?2 AND sms.endDateTime >= ?3")
     }
 )
 
@@ -55,28 +55,38 @@ public class Sms implements Serializable {
 	
 	private static final long serialVersionUID = Sms.class.getName().hashCode();
 
-    @Column(length = 20)
-	private String incomingId;
-	@Id
+    @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false)
 	private Long id;
-
+    
+    @Column(columnDefinition = "nvarchar(255)")
 	private String text;
-    @Column(length = 13)
-	private String phoneNumber;
-    @Column(length = 20)    
+
+    @Column(columnDefinition = "nvarchar(32)")
+	private String incomingId;
+
+	@Column(columnDefinition = "nvarchar(13)")	
+    private String phoneNumber;
+    
+	@Column(columnDefinition = "nvarchar(20)")    
 	private String systemName;
 
-    @Column(length = 20)
+	@Column(columnDefinition = "nvarchar(20)")
 	private String senderName; // eg. Kievstar, Life, Gmsu    
-    @Column(length = 20)
+    
+	@Column(columnDefinition = "nvarchar(32)")
 	private String senderId;
-	@Column(length = 20)
+	
+	@Column(columnDefinition = "nvarchar(20)")
 	private String senderGroupId;
 	
-    @Column(length = 20)
-	private String state;    
+    @Column
+	private int state;
+    
+    @Column(columnDefinition = "nvarchar(35)")
+    private String failReason;
+    
 	private boolean isStateChanged;
 	        
     @Temporal( TemporalType.TIMESTAMP )
@@ -116,11 +126,11 @@ public class Sms implements Serializable {
 		this.senderGroupId = senderGroupId;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
@@ -148,7 +158,14 @@ public class Sms implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public String getFailReason() {
+		return failReason;
+	}
 
+	public void setFailReason(String failReason) {
+		this.failReason = failReason;
+	}
+	
 	public boolean isStateChanged() {
 		return isStateChanged;
 	}

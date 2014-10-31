@@ -6,16 +6,6 @@
             name="np-feature-jpa-hbn"
             version="${version}">
 
-<!--    
-	    <feature>camel-blueprint</feature>
-        <feature>camel-core</feature>
-        <feature>camel-http</feature>
-        <feature>camel-jaxb</feature>
-        <feature>camel-cxf</feature>
-        <feature>camel-jetty</feature>
-        <feature>fabric-cxf</feature>
-        <feature>fabric-cxf-registry</feature>
- -->
         <feature>transaction</feature>
         <feature>jpa</feature>
         <feature>jndi</feature>

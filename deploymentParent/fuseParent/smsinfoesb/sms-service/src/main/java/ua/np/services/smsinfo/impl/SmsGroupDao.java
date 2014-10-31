@@ -2,13 +2,23 @@ package ua.np.services.smsinfo.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ua.np.services.smsinfo.Sms;
 import ua.np.services.smsinfo.SmsBulk;
 import ua.np.services.smsinfo.SmsGroup;
+import ua.np.services.smsinfo.StateHelper;
 
 /**
  * Copyright (C) 2014 Nova Poshta. All rights reserved.
@@ -21,9 +31,11 @@ import ua.np.services.smsinfo.SmsGroup;
  * Date: 28.07.2014
  */
 public class SmsGroupDao {
-
+	
     private EntityManager em;
-    private static final int SMS_3DAYS_END_TIME_OFFSET = 3 * 86400000; // 3 days
+    private static final int SMS_24H_END_TIME_OFFSET = 86400000;
+    
+    private Logger log = LoggerFactory.getLogger(SmsGroupDao.class);
     
     public EntityManager getEntityManager() {
         return em;
@@ -33,36 +45,71 @@ public class SmsGroupDao {
         this.em = em;
     }
     
+    /* returns current jpa and hibernate property set as a string for information*/
+    public String init(){
+    	Map<String, Object> props = getEntityManager().getEntityManagerFactory().getProperties();
+    	Set<Entry<String, Object>> set = props.entrySet();
+    	String s = "JPA PROPS: \n";
+    	for (Entry<String, Object> e : set){
+    		s += "property - " + e.getKey() + " : "+ e.getValue().toString() + "\n";
+    	}
+    	Session session = getEntityManager().unwrap(Session.class);
+    	s +="HBN PROPS: session connected" + session.isConnected() + "\n";
+    	SessionImplementor sessionImplementor = getEntityManager().unwrap( SessionImplementor.class );
+    	Properties hbnprops = sessionImplementor.getFactory().getProperties();
+    	Set<Entry<Object, Object>> hbnset = hbnprops.entrySet(); 
+    	for (Entry<Object, Object> e : hbnset){
+    		s += "property - " + e.getKey().toString() + " : "+ e.getValue().toString() + "\n";
+    	}
+    	return s;
+    }
+    
     /* first group creation, sms updates with groupId, all things get state "Pending"*/
     public void mergeSmsGroup(SmsGroup smsGroup){
-        for (Sms sms : smsGroup.getSms()){
-        	getEntityManager().createNamedQuery("updateSmsStateAndFlag")
-	            .setParameter(1, sms.getState())
-	            .setParameter(2, true)
-	            .setParameter(3, sms.getSenderId())
-	            .setParameter(4, sms.getSenderGroupId())
-	            .setParameter(5, sms.getSenderName())
-	            .setParameter(6, sms.getId())
-	            .executeUpdate();
+    	List<Sms> smsList = smsGroup.getSms();
+    	if (smsList != null){
+	        for (Sms sms : smsList){
+	        	getEntityManager().createNamedQuery("updateSmsStateAndFlag")
+		            .setParameter(1, sms.getState())
+		            .setParameter(2, true)
+		            .setParameter(3, sms.getSenderId())
+		            .setParameter(4, sms.getSenderGroupId())
+		            .setParameter(5, sms.getSenderName())
+		            .setParameter(6, sms.getId())
+		            .executeUpdate();
+	        }
+        } else {
+        	log.error("Parsing error for smsGroup. Sms list was empty!");
         }
     }
 
     public void updateSmsStatesBySenderId(SmsGroup smsGroup){
-        for (Sms sms : smsGroup.getSms()){
-            getEntityManager().createNamedQuery("updateSmsStateAndFlagBySenderId")
-                    .setParameter(1, sms.getState())
-                    .setParameter(2, true)
-                    .setParameter(3, sms.getSenderId())
-                    .executeUpdate();
+    	List<Sms> smsList = smsGroup.getSms();
+    	if (smsList != null){
+	        for (Sms sms : smsList){
+	        	getEntityManager().createNamedQuery("updateSmsStateAndFlagBySenderId")
+	                    .setParameter(1, sms.getState())
+	                    .setParameter(2, true)
+	                    .setParameter(3, sms.getFailReason())
+	                    .setParameter(4, sms.getSenderId())
+	                    .executeUpdate();
+	        }
+        } else {
+        	log.error("Parsing error for smsGroup. Sms list was empty!");
         }
-
     }
 
-    public void persistSms(SmsBulk smsBulk){
-        for(Sms msg : smsBulk.getSms()){
-        	msg.setEndDateTime(new Date(System.currentTimeMillis() + SMS_3DAYS_END_TIME_OFFSET));
-            getEntityManager().persist(msg);
+    public void persistSms(SmsBulk smsBulk) {
+    	List<Sms> smsList = smsBulk.getSms();
+    	if (smsList != null) {
+	        for(Sms msg : smsList){
+	        	msg.setEndDateTime(new Date(System.currentTimeMillis() + SMS_24H_END_TIME_OFFSET));
+	            getEntityManager().persist(msg);
+	        }
         }
+    	else {
+    		log.error("Parsing error for smsBulk. Sms list was empty!");
+    	}
     }
 
     public int getDeliveryStatusChangeCount(String systemName){
@@ -73,6 +120,7 @@ public class SmsGroupDao {
     public SmsGroup getStates(String systemName){
     	SmsGroup smsGroup = null; 
     	Query query = getEntityManager().createNamedQuery("getStates").setParameter(1, true).setParameter(2, systemName);
+		@SuppressWarnings("unchecked")
 		List<Sms> sms = query.getResultList();
 		if (sms != null && sms.size() > 0){
 			smsGroup = new SmsGroup();
@@ -90,53 +138,27 @@ public class SmsGroupDao {
     
     public  SmsGroup getNotAcceptedGmsuGroup(String systemName){
         SmsGroup group = new SmsGroup();
-        List<Sms> messages = getEntityManager().createNamedQuery("getNotDelivered").setParameter(1, "Delivered").setParameter(2, "Gmsu").setParameter(3, new Date(System.currentTimeMillis())).getResultList();
+        @SuppressWarnings("unchecked")
+		List<Sms> messages = getEntityManager().createNamedQuery("getNotDelivered").setParameter(1, StateHelper.STATE_SEND_REJECTED.value()).setParameter(2, "Gmsu").setParameter(3, new Date(System.currentTimeMillis())).getResultList();
         group.setSms(messages);
 	    return group;
     }
     
     
     /* update states by timer from Gmsu*/
-    /*
-		0	–ще не відправлено;
-		1	– відправлено;
-		2	– успішно відправлено (тобто отримано звіт про прийняття повідомлення від СМСЦ);
-		3	– відправка відхилена.;
-		4	 – повідомлення  доставлене;
-		5	 - повідомлення недоставлене.
-		У випадку коли повідомлення знаходиться у статусі «3» чи «5». Тег REASON буде містить пояснення причини статуса повідомлення. Він може принймати наступні значення:
-		-	«Internal error: Timeout»;
-		-	«Internal error: Invalid message»;
-		-	«Internal error: Unknown»;
-		-	«External error: Enroute»;
-		-	«External error: Expired»;
-		-	«External error: Deleted»;
-		-	«External error: Undeliverable»;
-		-	«External error: Rejected»;
-		-	«External error: Unknown»;
-     */
     public void updateGmsuStates(SmsGroup smsGroup){
-        for (Sms sms : smsGroup.getSms()){
-        	/*only for gmsu state handling*/
-			if (sms.getState().equals("0")) {
-				sms.setState("Accepted"); // status wasn't changed
-			} else if (sms.getState().equals("1")) {
-				sms.setState("Delivered"); // message was send
-			} else if (sms.getState().equals("2")) {
-				sms.setState("Delivered"); // message was send, report was returned from SMSCenter
-			} else if (sms.getState().equals("3")) {
-				sms.setState("Failed");	// rejected
-			} else if (sms.getState().equals("4")) {
-				sms.setState("Delivered"); // message was successfully delivered
-			} else if (sms.getState().equals("5")) {
-				sms.setState("Failed"); // delivered failed
-			} 
-        	getEntityManager().createNamedQuery("updateSmsStateAndFlagById")
-                    .setParameter(1, sms.getState())
-                    .setParameter(2, true)
-                    .setParameter(3, sms.getId())
-                    .executeUpdate();
-        }
-
+    	List<Sms> smsList = smsGroup.getSms();
+    	if (smsList != null) {
+	        for (Sms sms : smsList){
+	        	getEntityManager().createNamedQuery("updateSmsStateAndFlagById")
+	                    .setParameter(1, sms.getState())
+	                    .setParameter(2, true)
+	                    .setParameter(3, sms.getFailReason())
+	                    .setParameter(4, sms.getId())
+	                    .executeUpdate();
+	        }
+    	} else {
+    		log.error("Parsing error for smsBulk. Sms list was empty!");
+    	}
     }
 }

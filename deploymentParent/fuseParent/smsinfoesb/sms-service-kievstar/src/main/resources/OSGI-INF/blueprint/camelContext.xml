@@ -8,57 +8,73 @@
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
              ">
 
-    <camelContext id="kievstar-adapter-context" trace="{{ua.np.services.smsinfo.kievstar.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://camel.apache.org/schema/blueprint ">
+	<camelContext id="kievstar-adapter-context" trace="{{ua.np.services.smsinfo.kievstar.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint"
+	              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://camel.apache.org/schema/blueprint ">
 
-        <dataFormats>
-            <jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="apiJaxb"/>
-        </dataFormats>
+		<dataFormats>
+			<jaxb contextPath="ua.np.services.smsinfo" prettyPrint="true" id="apiJaxb"/>
+		</dataFormats>
 
-        <route id="ks-status-gateway">
-            <from uri="jetty:{{ua.np.services.smsinfo.kievstar.gateway.url}}"/>
-            <inOnly uri="direct:fromKyivstarStatus"/>
-            <setBody>
-                <constant>
-                    &lt;?xml version="1.0" encoding="utf-8"?&gt;
-                    &lt;report xmlns="http://goldentele.com/cpa"&gt;
-                    &lt;status&gt;Accepted&lt;/status&gt;
-                    &lt;/report&gt;
-                </constant>
-            </setBody>
-        </route>
+		<route id="ks-status-gateway">
+			<from uri="jetty:{{ua.np.services.smsinfo.kievstar.gateway.url}}"/>
+			<inOnly uri="direct:fromKyivstarStatus"/>
+			<setBody>
+				<constant>
+					&lt;?xml version="1.0" encoding="utf-8"?&gt;
+					&lt;report xmlns="http://goldentele.com/cpa"&gt;
+					&lt;status&gt;Accepted&lt;/status&gt;
+					&lt;/report&gt;
+				</constant>
+			</setBody>
+		</route>
 
-        <route id="direct-kievstar">
-            <from uri="direct-vm:kievstar"/>
-<!--  			<setHeader headerName="kievstarGoup">
-				<simple resultType="ua.np.services.smsinfo.SmsGroup">${body}</simple>
-			</setHeader>   -->       
-            <marshal ref="apiJaxb"/>
-            <!--<log message="[kievstar-adapter-context]:[direct-kievstar] ${body}"/>-->
-            <to uri="xslt:smsGroupToKievstarSendRequest.xsl"/>
-            <!--<log message="Request to Kyivstar ${body}"/>-->
-            <to id="toKyivstar" uri="jetty:{{ua.np.services.smsinfo.kievstar.request.uri}}"/>
-            <to uri="direct:fromKyivstar"/>
-        </route>
+		<route id="kievstar-aggregator">
+			<from uri="direct-vm:kievstar-aggregator"/>
+			<aggregate strategyRef="smsAggregationStrategy" completionTimeout="10000">
+			<correlationExpression><constant>true</constant></correlationExpression>
+			<completionSize>
+				<simple>{{ua.np.services.smsinfo.kievstar-aggregation.size}}</simple>
+			</completionSize>
+			<setBody><simple>&lt;smsGroup&gt;${body}&lt;/smsGroup&gt;</simple></setBody>
+			<unmarshal ref="apiJaxb"/>
+			<to uri="direct:kievstar"/>
+			</aggregate>
+		</route>
 
-        <route id="kyivstar-to-jpa">
-            <from uri="direct:fromKyivstar"/>
-            <convertBodyTo type="java.lang.String" charset="UTF-8"/>
-            <!--<log message="Response from Kyivstar: ${body}"/>-->
-            <to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
-            <!--<log message="converted response from Kyivstar: ${body}"/>-->
-            <unmarshal ref="apiJaxb"/>
-            <to id="jpa" uri="direct-vm:persist-responce"/>
-        </route>
+		<route id="direct-kievstar">
+			<from uri="direct:kievstar"/>
+			<!--  			<setHeader headerName="kievstarGoup">
+							<simple resultType="ua.np.services.smsinfo.SmsGroup">${body}</simple>
+						</setHeader>   -->
+			<marshal ref="apiJaxb"/>
+			<!--<log message="[kievstar-adapter-context]:[direct-kievstar] ${body}"/>-->
+			<to uri="xslt:smsGroupToKievstarSendRequest.xsl"/>
+			<!--<log message="Request to Kyivstar ${body}"/>-->
+			<to id="toKyivstar" uri="jetty:{{ua.np.services.smsinfo.kievstar.request.uri}}"/>
+			<to uri="direct:fromKyivstar"/>
+		</route>
 
-        <route id="statusResponse">
-            <from uri="direct:fromKyivstarStatus"/>
-            <convertBodyTo type="java.lang.String" charset="UTF-8"/>
-            <!--<log message="Status response from Kyivstar: ${body}"/>-->
-            <to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
-            <unmarshal ref="apiJaxb"/>
-            <to id="statusToJpa" uri="direct-vm:update-state"/>
-        </route>
-    </camelContext>
+		<route id="kyivstar-to-jpa">
+			<from uri="direct:fromKyivstar"/>
+			<convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			<!--<log message="Response from Kyivstar: ${body}"/>-->
+			<to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
+			<!--<log message="converted response from Kyivstar: ${body}"/>-->
+			<unmarshal ref="apiJaxb"/>
+			<to id="jpa" uri="direct-vm:persist-responce"/>
+		</route>
+
+		<route id="statusResponse">
+			<from uri="direct:fromKyivstarStatus"/>
+			<convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			<!--<log message="Status response from Kyivstar: ${body}"/>-->
+			<to uri="xslt:sendResponseToSmsServiceSmsList.xsl"/>
+			<unmarshal ref="apiJaxb"/>
+			<to id="statusToJpa" uri="direct-vm:update-state"/>
+		</route>
+	</camelContext>
+
+
+	<bean id="smsAggregationStrategy" class="ua.np.services.smsinfo.SmsAggregationStrategy"/>
 </blueprint>

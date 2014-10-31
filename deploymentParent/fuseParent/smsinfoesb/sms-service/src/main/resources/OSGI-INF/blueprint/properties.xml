@@ -15,10 +15,41 @@
             <cm:property name="ua.np.services.smsinfo.endpoint.name" value="smsinfo"/>
             <cm:property name="ua.np.services.smsinfo.endpoint.address" value="http://0.0.0.0:7675"/>
             <cm:property name="ua.np.services.smsinfo.gmsu-priority" value="true"/>
-            <cm:property name="ua.np.services.smsinfo.gmsu-aggregation.size" value="100"/>
-			<cm:property name="ua.np.services.smsinfo.kievstar-aggregation.size" value="100"/>
-			<cm:property name="ua.np.services.smsinfo.life-aggregation.size" value="100"/>
+            <!--<cm:property name="ua.np.services.smsinfo.gmsu-aggregation.size" value="100"/>-->
+			<!--<cm:property name="ua.np.services.smsinfo.kievstar-aggregation.size" value="100"/>-->
+			<!--<cm:property name="ua.np.services.smsinfo.life-aggregation.size" value="100"/>-->
 			<cm:property name="ua.np.services.smsinfo.camel-trace" value="true"/>
+	        <cm:property name="ua.np.services.smsinfo.kievstar-codes-matcher" value="(067.*)|(068.*)|(096.*)|(097.*)|(098.*)"/>
+        
+			<cm:property name="ua.np.services.smsinfo.hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.hbm2ddl.auto" value="validate"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.autodetect" value="class"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.ord_updates" value="true"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.max_fetch_depth" value="4"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.batch_fetch_size" value="16"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.jdbc_fetch-size" value="2000"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.jdbc_batch_size" value="30"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.jdbc_batch_vers_data" value="true"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.show_sql" value="false"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.format_sql" value="false"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.use_sql_comments" value="false"/>
+			<cm:property name="ua.np.services.smsinfo.hibernate.gener_stats" value="false"/>
+
+			<!-- TO env property file
+			ua.np.services.smsinfo.hibernate.dialect=org.hibernate.dialect.SQLServer2008Dialect
+			ua.np.services.smsinfo.hibernate.hbm2ddl.auto=validate
+			ua.np.services.smsinfo.hibernate.autodetect=class
+			ua.np.services.smsinfo.hibernate.ord_updates=true
+			ua.np.services.smsinfo.hibernate.max_fetch_depth=2
+			ua.np.services.smsinfo.hibernate.batch_fetch_size=8
+			ua.np.services.smsinfo.hibernate.jdbc_fetch-size=1000
+			ua.np.services.smsinfo.hibernate.jdbc_batch_size=15
+			ua.np.services.smsinfo.hibernate.jdbc_batch_vers_data=true
+			ua.np.services.smsinfo.hibernate.show_sql=true
+			ua.np.services.smsinfo.hibernate.format_sql=true
+			ua.np.services.smsinfo.hibernate.use_sql_comments=true
+			ua.np.services.smsinfo.hibernate.gener_stats=true
+			-->        
         </cm:default-properties>
     </cm:property-placeholder>
 

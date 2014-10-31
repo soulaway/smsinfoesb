@@ -106,7 +106,7 @@
 	</binding>
 	<service name="SMSServiceControllerService">
 		<port binding="tns:SMSServiceControllerBinding" name="SMSServiceControllerPort">
-			<!-- <soap:address location="http://localhost:8091/legacy"/> -->
+			 <soap:address location=""/>
 		</port>
 	</service>
 </definitions>

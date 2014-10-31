@@ -1,12 +1,11 @@
 <xsl:stylesheet version="2.0" 
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:urn="urn:SMSServiceControllerwsdl">
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-	<xsl:template match="urn:sendMessages">
+	<xsl:template match="data">
 		<smsBulk>
 			<incomingId></incomingId>
             <xsl:variable name="sysName" select="systemName"/>
-			<xsl:for-each select="xml/Structure/Array/Structure">
+			<xsl:for-each select="Structure/Array/Structure">
 				<sms>
 				<id></id>
 				<bulkId></bulkId>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+             http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+	
+	<!-- Connection factory -->
+	
+    <bean id="AMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="discovery:(fabric:default)"/>
+		<property name="userName" value="admin"/>
+		<property name="password" value="admin"/>
+        <property name="redeliveryPolicy">
+		    <bean class="org.apache.activemq.RedeliveryPolicy">
+		        <property name="maximumRedeliveries" value="0" />
+		    </bean>
+        </property>
+        <property name="transactedIndividualAck" value="true"/> <!-- callback for broker when transaction success -->
+    </bean>
+
+    <bean id="AMQConnectionFactoryPool" class="org.apache.activemq.pool.PooledConnectionFactory"
+          init-method="start" destroy-method="stop">
+        <property name="connectionFactory" ref="AMQConnectionFactory" />
+    </bean>
+    
+	<!-- Transaction Manager -->
+
+	<bean id="transactionPolicy" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+        <property name="transactionManager" ref="jmsTransactionManager" />
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
+    </bean>
+
+    <bean id="jmsTransactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
+		<property name="connectionFactory" ref="AMQConnectionFactoryPool"/>
+    </bean> 
+
+	<!-- Connection configuration -->
+	
+	<bean id="AMQConfig"
+		class="org.apache.activemq.camel.component.ActiveMQConfiguration">
+		<property name="connectionFactory" ref="AMQConnectionFactoryPool" />
+		<property name="transactionManager" ref="jmsTransactionManager" />
+		<property name="transacted" value="true" />
+	</bean>
+
+    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+    	<argument ref="AMQConfig"/>
+		<property name="cacheLevelName" value="CACHE_CONSUMER"/> <!-- increase performance for non XA transactions -->
+    </bean>
+
+	<!-- test counter -->
+
+	<bean id="counter" class="java.util.concurrent.atomic.AtomicInteger">
+        <argument value="1"/>
+    </bean>
+	
+	<!-- gsmu integration -->
+	<bean id="submitSmRespProcessor" class="ua.np.services.smsinfo.smpp.SubmitSmRespProcessor"/>
+		
+	
+    <camelContext id="smpp-context"
+                  xmlns="http://camel.apache.org/schema/blueprint"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://camel.apache.org/schema/blueprint"
+                  trace="true">
+	
+        <onException useOriginalMessage="true">
+            <exception>org.apache.camel.component.smpp.SmppException</exception>
+            <handled><constant>true</constant></handled>
+            <to uri="direct:parseResponse"/>
+        </onException>
+
+<!-- 		<route>
+			<from uri="timer://myTimer?fixedRate=true&amp;period=5000" />
+			<setBody><simple>{{ua.np.services.smpp-amq-name}} -> ${bean:counter?method=getAndIncrement}</simple></setBody>
+			<to uri="activemq:queue:foO" />
+		</route>
+		
+		<route>
+			<from uri="activemq:queue:foO" />
+			<log message="${body}"/>
+		</route>
+ -->		
+        <route id="submitSm" trace="true">
+            <from uri="direct:submitSm"/>
+
+            <!-- We are about to transform in.body, so put it as exchange property for later use. -->
+            <setProperty propertyName="Sms">
+                <simple>${in.body}</simple>
+            </setProperty>
+
+            <!-- Avoid overloading GMSU endpoint! -->
+            <throttle timePeriodMillis="1000">
+                <constant>200</constant>
+
+                <!-- prepare SMPP message -->
+                <setHeader headerName="CamelSmppDestAddr">
+                    <simple>${body.phoneNumber}</simple>
+                </setHeader>
+                <transform>
+                    <simple>${in.body.text}</simple>
+                </transform>
+
+                <!-- Send -->
+                <to uri="smpp://{{ua.np.services.smpp-gmsu.user}}@{{ua.np.services.smpp-gmsu.host}}:{{ua.np.services.smpp-gmsu.port}}?password={{ua.np.services.smpp-gmsu.password}}&amp;enquireLinkTimer=60000&amp;transactionTimer=30000&amp;sourceAddrTon=5&amp;sourceAddrNpi=0&amp;destAddrTon=1&amp;destAddrNpi=1&amp;typeOfNumber=5&amp;systemType="/>
+            </throttle>
+
+            <!-- Get back to the original body -->
+            <setBody>
+                <simple>${property.Sms}</simple>
+            </setBody>
+            <removeProperty propertyName="Sms"/>
+
+            <!-- Parse response -->
+            <to uri="direct:parseResponse"/>
+        </route>
+
+        <route id="parseResponse" trace="true">
+            <from uri="direct:parseResponse"/>
+
+            <!-- Process response -->
+            <to uri="bean:submitSmRespProcessor?method=process(${in.body}, ${in.headers})"/>
+
+            <!-- Update sms status -->
+            <to uri="direct:updateSms"/>
+        </route>
+        
+        <route id="updateSms">
+            <from uri="direct:updateSms"/>
+            <to uri="mock:updateSms"/>
+        </route>
+        
+        <route id="deliverSm" trace="true">
+            <from uri="smpp://{{ua.np.services.smpp-gmsu.user}}@{{ua.np.services.smpp-gmsu.host}}:{{ua.np.services.smpp-gmsu.port}}?password={{ua.np.services.smpp-gmsu.password}}&amp;enquireLinkTimer=60000&amp;transactionTimer=30000&amp;sourceAddrTon=5&amp;sourceAddrNpi=0&amp;destAddrTon=1&amp;destAddrNpi=1&amp;typeOfNumber=5&amp;systemType="/>
+            <to uri="mock:deliverSmMock"/>
+<!--
+            <to uri="direct:updateSms"/>
+-->
+        </route>
+	</camelContext>
+	
+</blueprint>

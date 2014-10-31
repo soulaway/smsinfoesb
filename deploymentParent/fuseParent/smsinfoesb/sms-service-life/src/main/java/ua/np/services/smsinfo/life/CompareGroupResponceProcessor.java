@@ -9,12 +9,12 @@ public class CompareGroupResponceProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
-    	Long l;
         SmsGroup lifeGroup = exchange.getProperty( "lifeGroup", SmsGroup.class );
         SmsGroup responceGroup = exchange.getIn().getBody(SmsGroup.class);
         if (lifeGroup != null && responceGroup != null){
         	if (lifeGroup.getSms().size() == responceGroup.getSms().size()){
         		for (int i = 0; i < lifeGroup.getSms().size(); i++){
+        			lifeGroup.getSms().get(i).setSenderName("Life");
         			lifeGroup.getSms().get(i).setState(responceGroup.getSms().get(i).getState());
         			lifeGroup.getSms().get(i).setSenderId(responceGroup.getSms().get(i).getSenderId());
         		}

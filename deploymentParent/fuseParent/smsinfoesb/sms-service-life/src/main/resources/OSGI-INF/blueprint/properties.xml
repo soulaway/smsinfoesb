@@ -15,6 +15,12 @@
             <cm:property name="ua.np.services.smsinfo.life.request.uri" value="http://mock.dev.np.ua:8085/life?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;disableStreamCache=true"/>
             <cm:property name="ua.np.services.smsinfo.life.gateway.url" value="http://0.0.0.0:8095/lifegateway"/>
             <cm:property name="ua.np.services.smsinfo.life.camel-trace" value="true"/>
+	        <cm:property name="ua.np.services.smsinfo.life-aggregation.size" value="100"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.default-transport" value="http"/> <!--smpp-->
+	        <cm:property name="ua.np.services.smsinfo.gmsu.smpp-broker-url" value="tcp://localhost:61616"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.smpp-broker-failover" value="tcp://localhost:61617"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.login" value=""/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.password" value=""/>
         </cm:default-properties>
     </cm:property-placeholder>
 

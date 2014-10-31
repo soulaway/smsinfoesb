@@ -7,11 +7,11 @@
 
 	<groupId>ua.np.services</groupId>
 	<artifactId>smsinfoesb</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<parent>
-		<artifactId>fuseParent</artifactId>
+		<artifactId>npFuseParent</artifactId>
 		<version>1.0.0.redhat-610379-SNAPSHOT</version>
 		<groupId>ua.np.maven</groupId>
 	</parent>
@@ -24,6 +24,7 @@
 		<module>sms-service-life</module>
 		<module>sms-service-feature</module>
 		<module>sms-service-gmsu</module>
+		<module>sms-service-smpp</module>
 	</modules>
 
 	<dependencyManagement>
@@ -73,6 +74,11 @@
 		<jolokiaUrl>http://localhost:8181/jolokia</jolokiaUrl>
 		<server.id>fabric8.upload.repo</server.id>
 		<soapui.smsinfo.test.uri>http://dev-fab01.np.ua:8184/cxf/legacy</soapui.smsinfo.test.uri>
+		<LoaduiServiceUrl>http://localhost:8182/cxf/legacy</LoaduiServiceUrl>
+		<soapui.smsinfo.test.REST.uri>http://localhost:8182/cxf</soapui.smsinfo.test.REST.uri>
+
+
+
 	</properties>
 
 	<!-- Plugin management -->
@@ -121,11 +127,14 @@
 					<settingsFile>soapui_tests/soapui-settings.xml</settingsFile>
 					<testSuite>TestKyivstar</testSuite>
 					<testSuite>TestLife</testSuite>
+					<testSuite>REST</testSuite>
 					<threadCount>1</threadCount>
 					<junitReport>true</junitReport>
 					<outputFolder>target/junitreports</outputFolder>
 					<projectProperties>
 						<projectProperty>serviceUrl=${soapui.smsinfo.test.uri}</projectProperty>
+						<projectProperty>LoaduiServiceUrl=${LoaduiServiceUrl}</projectProperty>
+						<projectProperty>serviceRESTUrl=${soapui.smsinfo.test.REST.uri}</projectProperty>
 					</projectProperties>
 				</configuration>
 			</plugin>

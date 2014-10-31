@@ -10,13 +10,19 @@
 	<parent>
 		<groupId>ua.np.services</groupId>
 		<artifactId>smsinfoesb</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 
 	<!-- import/export/private resource internal management -->
 	<properties>
 		<osgi.import.pkg>
 			ua.np.services.smsinfo,
+			<!-- workeround imports for RestHeadersCharsetHandler -->
+			org.apache.camel,
+			org.apache.cxf.message,
+			org.apache.camel.spi,
+			org.apache.cxf.binding.soap,
+			<!-- endof -->
 			javax.ws.rs
 		</osgi.import.pkg>
 		<osgi.private.pkg>
@@ -28,7 +34,7 @@
 		<dependency>
 			<groupId>ua.np.services</groupId>
 			<artifactId>sms-service-api</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.5-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 

@@ -12,15 +12,21 @@
     <cm:property-placeholder id="gmsu.placeholder" persistent-id="ua.np.services.smsinfo" update-strategy="reload">
         <!-- list some properties for this test -->
         <cm:default-properties>
-            <!-- <cm:property name="ua.np.services.smsinfo.gmsu.http-post.uri" value="http://smsapi.bulk.gmsu.ua/sms.php?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;proxyHost=proxy.np.ua&amp;proxyPort=3128&amp;proxyAuthMethod=Basic"/> -->
+            <!-- <cm:property name="ua.np.services.smsinfo.gmsu.http-post.uri" value="http://smsapi.bulk.gmsu.ua/sms.php?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;proxyHost=proxy.np.ua&amp;proxyPort=3128&amp;proxyAuthMethod=Basic&amp;proxyAuthUsername=soloviov.d&amp;proxyAuthPassword=987qwe654asd"/> -->
             <cm:property name="ua.np.services.smsinfo.gmsu.http-post-sendsms.uri" value="http://mock.dev.np.ua:8082/sms.php?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;disableStreamCache=true"/>
             <!-- <cm:property name="ua.np.services.smsinfo.gmsu.http-post-getstates.uri" value="http://smsapi.bulk.gmsu.ua/stat.php?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/> -->
             <cm:property name="ua.np.services.smsinfo.gmsu.http-post-getstates.uri" value="http://mock.dev.np.ua:8083/stat.php?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;disableStreamCache=true"/>
-            <cm:property name="ua.np.services.smsinfo.gmsu.credentials" value="Basic xxx"/>
+            <cm:property name="ua.np.services.smsinfo.gmsu.credentials" value=""/>
 			<cm:property name="ua.np.services.smsinfo.gmsu-updatestate.timeout" value="300"/>
-            <cm:property name="ua.np.services.smsinfo.gmsu-updatestate.delay" value="180"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu-aggregation.size" value="100"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu-updatestate.delay" value="180"/>
             <cm:property name="ua.np.services.smsinfo.gmsu-updatestate-aggregation.size" value="1000"/>
 			<cm:property name="ua.np.services.smsinfo.gmsu.camel-trace" value="true"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.default-transport" value="http"/> <!--smpp-->
+	        <cm:property name="ua.np.services.smsinfo.gmsu.smpp-broker-url" value="tcp://localhost:61616"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.smpp-broker-failover" value="tcp://localhost:61617"/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.login" value=""/>
+	        <cm:property name="ua.np.services.smsinfo.gmsu.password" value=""/>
         </cm:default-properties>
     </cm:property-placeholder>
 

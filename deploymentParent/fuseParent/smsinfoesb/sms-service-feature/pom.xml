@@ -5,7 +5,7 @@
     <parent>
         <artifactId>smsinfoesb</artifactId>
         <groupId>ua.np.services</groupId>
-        <version>1.0.4-SNAPSHOT</version>
+        <version>1.0.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -87,7 +87,6 @@
                         mvn:ua.np.services/sms-service-life/${project.version}
                         mvn:ua.np.services/sms-service-gmsu/${project.version}
                     </bundles>
-                    <parentProfiles>np_default</parentProfiles>
                     <profileConfigDir>${profileConfigDir}</profileConfigDir>
                     <jolokiaUrl>${jolokiaUrl}</jolokiaUrl>
                     <serverId>${server.id}</serverId>
