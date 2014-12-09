@@ -36,7 +36,7 @@ public class SmsGroupDao {
     private static final int SMS_24H_END_TIME_OFFSET = 86400000;
     
     private Logger log = LoggerFactory.getLogger(SmsGroupDao.class);
-    
+
     public EntityManager getEntityManager() {
         return em;
     }
@@ -117,14 +117,15 @@ public class SmsGroupDao {
     	return count;
     }
     
-    public SmsGroup getStates(String systemName){
-    	SmsGroup smsGroup = null; 
+    public SmsBulk getStates(String systemName){
+    	SmsBulk smsBulk = null;
     	Query query = getEntityManager().createNamedQuery("getStates").setParameter(1, true).setParameter(2, systemName);
 		@SuppressWarnings("unchecked")
 		List<Sms> sms = query.getResultList();
 		if (sms != null && sms.size() > 0){
-			smsGroup = new SmsGroup();
-			smsGroup.setSms(sms);
+			smsBulk = new SmsBulk();
+			smsBulk.setSms(sms);
+			smsBulk.setSystemName(systemName);
         	getEntityManager().createNamedQuery("updateSmsFlag")
             .setParameter(1, false)
             .setParameter(2, systemName)
@@ -133,7 +134,7 @@ public class SmsGroupDao {
 		 } else {
 			 throw new IllegalStateException("smsinfo-service: no states changes for " + systemName, new Throwable("No states were returned by getStates request."));
 		}
-		return smsGroup;
+		return smsBulk;
     }
     
     public  SmsGroup getNotAcceptedGmsuGroup(String systemName){

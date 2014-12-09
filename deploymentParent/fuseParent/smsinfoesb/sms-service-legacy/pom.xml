@@ -17,12 +17,6 @@
 	<properties>
 		<osgi.import.pkg>
 			ua.np.services.smsinfo,
-			<!-- workeround imports for RestHeadersCharsetHandler -->
-			org.apache.camel,
-			org.apache.cxf.message,
-			org.apache.camel.spi,
-			org.apache.cxf.binding.soap,
-			<!-- endof -->
 			javax.ws.rs
 		</osgi.import.pkg>
 		<osgi.private.pkg>

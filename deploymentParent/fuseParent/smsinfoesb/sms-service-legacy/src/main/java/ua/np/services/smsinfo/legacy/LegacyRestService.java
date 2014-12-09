@@ -9,12 +9,10 @@ import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.osgi.service.component.annotations.Component;
 
 @Component
-@Path("/")
+@Path("post")
 @Produces("text/xml")
-//public class LegacyRestService {
 public interface LegacyRestService {
 
     @POST
-    @Path("/{systemName}") 
-    public String post(@QueryParam("systemName") String systemName, @Multipart(value = "body", type = "text/xml") String body);
+    public String post(@QueryParam("systemName") String systemName, @Multipart(value = "body", type = "text/xml;charset=utf-8") String body);
 }

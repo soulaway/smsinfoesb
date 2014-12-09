@@ -12,11 +12,12 @@ import javax.jws.WebService;
 
 @WebService
 public interface SmsService {
-	@WebMethod
+		@WebMethod
 	public SmsBulk saveMessages (@WebParam(name = "bulk") SmsBulk bulk);
-	
-/*	
+
 	@WebMethod
-	public SmsBulkResponse updateStates (@WebParam(name = "bulk") SmsBulk ?? bulk);
-*/
+	public String getStatesChangeCount (@WebParam(name = "systemName") String systemName);
+
+	@WebMethod
+	public SmsBulk getStates (@WebParam(name = "systemName") String systemName);
 }

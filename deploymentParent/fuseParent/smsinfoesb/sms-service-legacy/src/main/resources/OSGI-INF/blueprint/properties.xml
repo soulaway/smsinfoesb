@@ -11,7 +11,7 @@
     <cm:property-placeholder id="legacy.placeholder" persistent-id="ua.np.services.smsinfo" update-strategy="reload">
         <cm:default-properties>
             <cm:property name="ua.np.services.smsinfo.legacy.soap.address" value="http://0.0.0.0:7676"/>
-            <cm:property name="ua.np.services.smsinfo.legacy.rest.address" value="http://0.0.0.0:7677"/>
+            <cm:property name="ua.np.services.smsinfo.legacy.rest.address" value="http://0.0.0.0:7677/"/>
             <cm:property name="ua.np.services.smsinfo.legacy.soap.name" value="legacy"/>
             <cm:property name="ua.np.services.smsinfo.legacy.rest.name" value="legacy-rest"/>
             <cm:property name="ua.np.services.smsinfo.legacy.camel-trace" value="true"/>

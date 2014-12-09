@@ -17,7 +17,9 @@
 		</dataFormats>
 
 		<route id="ks-status-gateway">
-			<from uri="jetty:{{ua.np.services.smsinfo.kievstar.gateway.url}}"/>
+			<from uri="cxfrs://{{ua.np.services.smsinfo.kievstar.gateway.address}}/{{ua.np.services.smsinfo.kievstar.gateway.name}}?resourceClasses=ua.np.services.smsinfo.kievstar.KievstarGatewayService&amp;setDefaultBus=true"/>
+			<setBody><simple>${body}</simple></setBody> <!-- InputStream reading -->
+			<setBody><simple>${body[0]}</simple></setBody><!-- getting the text body parameter -->
 			<inOnly uri="direct:fromKyivstarStatus"/>
 			<setBody>
 				<constant>

@@ -34,18 +34,34 @@
             <from uri="timer://foo?period=0s;delay=1s;repeatCount=1"/>
             <bean ref="smsGroupDao" method="init"/>
         </route>
-        
-        
+
+
         <!--invokes messages processing from cxf, process pojo SmsBulk -->
         <route id="cxf-route" startupOrder="120">
             <from uri="cxf:bean:smsCxfEndpoint" />
             <setBody>
                 <simple>${body[0]}</simple>
             </setBody>
-            <to uri="direct-vm:persist-request"/>
+	        <setProperty propertyName="operationName"><simple>${header.operationName}</simple></setProperty>
+	        <choice>
+		        <when>
+			        <simple>${property.operationName} == 'saveMessages'</simple>
+			        <to uri="direct-vm:persist-request"/>
+		        </when>
+		        <when>
+			        <simple>${property.operationName} == 'getStates'</simple>
+			        <setBody><simple>&lt;statusRequest&gt;&lt;systemName&gt;${body}&lt;/systemName&gt;&lt;/statusRequest&gt;</simple></setBody>
+			        <to uri="direct-vm:get-states"/>
+		        </when>
+		        <when>
+			        <simple>${property.operationName} == 'getStatesChangeCount'</simple>
+			        <setBody><simple>&lt;statusRequest&gt;&lt;systemName&gt;${body}&lt;/systemName&gt;&lt;/statusRequest&gt;</simple></setBody>
+			        <to uri="direct-vm:get-delivery-data-changecount"/>
+		        </when>
+	        </choice>
         </route>
 
-        <!-- persists all Sms from bulk, returns the bulk to legacy responce and wireTaps it to collector-route for sending-->
+        <!-- persists all Sms from bulk, returns the bulk to legacy response and wireTaps it to collector-route for sending-->
         <route id="persist-request-route" startupOrder="110">
             <from uri="direct-vm:persist-request"/>
             <bean ref="smsGroupDao" method="persistSms" />
@@ -110,10 +126,10 @@
             <to uri="bean:smsGroupDao?method=getDeliveryStatusChangeCount(${property.sysName})"/>
             <setBody>
                 <simple>
-                    &lt;statusRequest&gt;
+                    &lt;statusChangecountResponce&gt;
                     &lt;systemName&gt;${property.sysName}&lt;/systemName&gt;
                     &lt;changeCount&gt;${body}&lt;/changeCount&gt;
-                    &lt;/statusRequest&gt;
+                    &lt;/statusChangecountResponce&gt;
                 </simple>
             </setBody>
         </route>
@@ -122,8 +138,8 @@
         <route id="get-states-route" startupOrder="20">
             <from uri="direct-vm:get-states"/>
             <setProperty propertyName="sysName"><xpath resultType="java.lang.String">/statusRequest/systemName</xpath></setProperty>
-            <to uri="bean:smsGroupDao?method=getStates(${property.sysName})"/>
-            <marshal ref="apiJaxb"/>
+	        <to uri="bean:smsGroupDao?method=getStates(${property.sysName})"/>
+            <!--<marshal ref="apiJaxb"/>-->
         </route>
     </camelContext>
 

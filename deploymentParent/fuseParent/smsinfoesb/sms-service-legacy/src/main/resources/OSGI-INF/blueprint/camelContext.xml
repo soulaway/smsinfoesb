@@ -12,10 +12,7 @@
 
 
 	<cxf:cxfEndpoint id="smsLegacyEndpointSoap"
-	                 xmlns:e="urn:SMSServiceControllerwsdl"
 	                 address="{{ua.np.services.smsinfo.legacy.soap.address}}/{{ua.np.services.smsinfo.legacy.soap.name}}"
-	                 serviceName="e:SMSServiceControllerService"
-	                 endpointName="e:SMSServiceControllerPort"
 	                 wsdlURL="legacy.wsdl">
 		<cxf:properties>
 			<entry key="dataFormat" value="MESSAGE"/>
@@ -23,6 +20,11 @@
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
+	<!--	xmlns:e="urn:SMSServiceControllerwsdl"
+			serviceName="e:SMSServiceControllerService"
+			endpointName="e:SMSServiceControllerPort" -->
+	
+	
 	<camelContext  id="legacy-adapter-context" trace="{{ua.np.services.smsinfo.legacy.camel-trace}}" xmlns="http://camel.apache.org/schema/blueprint">
 
 		<dataFormats>
@@ -33,9 +35,6 @@
 			<from uri="cxf:bean:smsLegacyEndpointSoap"/>
 			<convertBodyTo type="java.lang.String"/>
 			<setProperty propertyName="operationName"><simple>${header.CamelCxfMessage['org.apache.cxf.message.Message.PROTOCOL_HEADERS']['SOAPAction']}</simple></setProperty>
-			
-			<bean ref="restCharsetHandler"/>
-			
 			<to uri="direct:soap-request-handler"/>
 		</route>
 
@@ -53,14 +52,14 @@
 					<to uri="direct-vm:persist-request"/>
 					<to uri="xslt:sendMessagesResponce.xsl"/>
 <!-- for route logging TODO remove-->
-<setBody><simple>${body}</simple></setBody>					
+<setBody><simple>${body}</simple></setBody>
 				</when>
 				<when>
 					<simple>${property.operationName} == '["urn:SMSServiceControllerwsdl#getDeliveryStatusData"]'</simple>
 					<to uri="xslt:getStatesRequest.xsl"/>
 					<to uri="direct-vm:get-states"/>
 					<to uri="xslt:getStatesResponce.xsl"/>
-<!-- for route logging TODO remove-->
+					<!-- for route logging TODO remove-->
 <setBody><simple>${body}</simple></setBody>					
 				</when>
 				<when>
@@ -81,8 +80,9 @@
 			<setProperty propertyName="systemName"><simple>${body[0]}</simple></setProperty>
 			<setBody><simple>${body[1]}</simple></setBody>
 			<setProperty propertyName="operationName"><xpath resultType="java.lang.String">/Structure/Value/Data</xpath></setProperty>
-			<!-- gmsu charset workaround -->
-			<bean ref="restCharsetHandler"/>
+			<setProperty propertyName="CamelCharsetName">
+				<constant>UTF-8</constant>
+			</setProperty>			
 			<to uri="direct:rest-request-handler"/>
 		</route>
 
@@ -119,6 +119,5 @@
 			</choice>
 		</route>
 	</camelContext>
-	
-	<bean id="restCharsetHandler" class="ua.np.services.smsinfo.legacy.RestHeadersCharsetHandler"/>
+
 </blueprint>

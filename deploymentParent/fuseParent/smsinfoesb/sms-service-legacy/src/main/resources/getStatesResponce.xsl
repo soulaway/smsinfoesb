@@ -2,7 +2,7 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:urn="urn:SMSServiceControllerwsdl">
 <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-	<xsl:template match="smsGroup">
+	<xsl:template match="smsBulk">
 		<soapenv:Envelope 
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 

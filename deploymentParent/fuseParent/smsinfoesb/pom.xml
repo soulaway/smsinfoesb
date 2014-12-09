@@ -24,7 +24,7 @@
 		<module>sms-service-life</module>
 		<module>sms-service-feature</module>
 		<module>sms-service-gmsu</module>
-		<module>sms-service-smpp</module>
+		<!-- <module>sms-service-smpp</module> -->
 	</modules>
 
 	<dependencyManagement>

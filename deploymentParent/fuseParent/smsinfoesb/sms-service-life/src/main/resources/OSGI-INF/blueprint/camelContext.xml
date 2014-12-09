@@ -4,8 +4,11 @@
            xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
            xmlns:camel="http://camel.apache.org/schema/blueprint"
            xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
            xsi:schemaLocation="
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd
+			 http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd             
              ">
 
 
@@ -18,7 +21,9 @@
         </dataFormats>
 
         <route id="life-status-gateway" startupOrder="40">
-            <from uri="jetty:{{ua.np.services.smsinfo.life.gateway.url}}"/>
+            <from uri="cxfrs://{{ua.np.services.smsinfo.life.gateway.address}}/{{ua.np.services.smsinfo.life.gateway.name}}?resourceClasses=ua.np.services.smsinfo.life.LifeGatewayService&amp;setDefaultBus=true"/>
+			<setBody><simple>${body}</simple></setBody> <!-- InputStream reading -->
+			<setBody><simple>${body[0]}</simple></setBody><!-- getting the text body parameter -->
             <inOnly uri="direct:fromLifeStatus"/>
             <setBody>
                 <constant>

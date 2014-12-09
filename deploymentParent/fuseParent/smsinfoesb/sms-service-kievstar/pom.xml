@@ -50,9 +50,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
+<!--         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jetty</artifactId>
+        </dependency>
+ -->		
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         </dependency>
 
         <dependency>
@@ -120,7 +125,8 @@
             ua.np.services.smsinfo,
             org.apache.camel.component.cxf.transport,
             org.apache.camel,
-            org.osgi.service.blueprint
+            org.osgi.service.blueprint,
+            javax.ws.rs
         </osgi.import.pkg>
         <osgi.export.pkg>
             ua.np.services.smsinfo.kievstar.*

@@ -13,7 +13,10 @@
         <!-- list some properties for this test -->
         <cm:default-properties>
             <cm:property name="ua.np.services.smsinfo.kievstar.request.uri" value="http://mock.dev.np.ua:8084/kievstar?bridgeEndpoint=true&amp;throwExceptionOnFailure=false&amp;disableStreamCache=true"/>
-            <cm:property name="ua.np.services.smsinfo.kievstar.gateway.url" value="http://0.0.0.0:8095/ksgateway"/>
+			
+			<cm:property name="ua.np.services.smsinfo.kievstar.gateway.address" value="http://0.0.0.0:7679/"/>
+            <cm:property name="ua.np.services.smsinfo.kievstar.gateway.name" value="kievstarstatesgateway"/>
+
             <cm:property name="ua.np.services.smsinfo.kievstar.camel-trace" value="true"/>
 	        <cm:property name="ua.np.services.smsinfo.kievstar-aggregation.size" value="100"/>
         </cm:default-properties>
